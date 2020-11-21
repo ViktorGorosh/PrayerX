@@ -1,23 +1,17 @@
 import React from 'react';
 import {
-	SafeAreaView,
-	StyleSheet,
-	ScrollView,
-	View,
 	Text,
-	StatusBar,
 } from 'react-native';
+import {useSelector} from "react-redux";
+import {selectUser} from "./state/ducks/user";
 
-declare const global: {HermesInternal: null | {}};
+import {User} from "interfaces/user";
 
-const App = () => {
+export default () => {
+	const user: User = useSelector(selectUser)
 	return (
 		<>
-			<Text>Hello, world</Text>
+			<Text>Hello, {user.name}</Text>
 		</>
 	);
-};
-
-
-
-export default App;
+}
