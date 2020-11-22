@@ -1,17 +1,26 @@
 import React from 'react';
-import {
-	Text,
-} from 'react-native';
-import {useSelector} from "react-redux";
-import {selectUser} from "./state/ducks/user";
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-import {User} from "interfaces/user";
+import {AuthScreen, CardItemScreen, ColumnListScreen, ColumnItemScreen} from '../src/views/screens'
+
+// import {useSelector} from "react-redux";
+// import {selectUser} from "./state/ducks/user";
+//
+
+// import {User} from "interfaces/user";
+
+const Stack = createStackNavigator()
 
 export default () => {
-	const user: User = useSelector(selectUser)
 	return (
-		<>
-			<Text>Hello, {user.name}</Text>
-		</>
-	);
+		<NavigationContainer>
+			<Stack.Navigator>
+				<Stack.Screen name={'Auth'} component={AuthScreen}/>
+				<Stack.Screen name={'ColumnList'} component={ColumnListScreen}/>
+				<Stack.Screen name={'ColumnItem'} component={ColumnItemScreen}/>
+				<Stack.Screen name={'CardItem'} component={CardItemScreen}/>
+			</Stack.Navigator>
+		</NavigationContainer>
+	)
 }
