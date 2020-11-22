@@ -2,7 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import {AuthScreen, CardItemScreen, ColumnListScreen, ColumnItemScreen} from '../src/views/screens'
+import {AuthScreen, CardItemScreen, ColumnListScreen, ColumnItemScreen} from './views/screens'
 
 // import {useSelector} from "react-redux";
 // import {selectUser} from "./state/ducks/user";
