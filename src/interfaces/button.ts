@@ -1,9 +1,10 @@
-export interface Button {
+import {StyleProp, TextStyle} from "react-native";
+
+export interface ButtonProps {
 	text: string,
-	// TODO: find type for style
 	styles: {
-		button: object,
-		text: object
+		button: StyleProp<any>,
+		text: TextStyle
 	}
 	onPress: () => void
 }
