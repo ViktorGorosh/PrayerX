@@ -1,30 +1,31 @@
 import React, {useCallback, useState} from 'react';
-import {
-	View, StyleSheet, TextInput
-} from 'react-native';
+import {View, StyleSheet, TextInput} from 'react-native';
 import {useDispatch} from 'react-redux';
 
-import {login } from '../../state/ducks/user';
+import {login} from '../../state/ducks/user';
 
-import {ShowHideButton, styles as ShowHideButtonStyles} from "../components/ShowHideButton";
+import {
+	ShowHideButton,
+	styles as ShowHideButtonStyles,
+} from '../components/ShowHideButton';
 
 interface AuthScreenProps {
-	navigation: any
+	navigation: any;
 }
 
 export default ({navigation}: AuthScreenProps) => {
-
 	const dispatch = useDispatch();
 
-	const [newName, setNewName] = useState('')
-	const onChangeText = useCallback(text => setNewName(text),[])
+	const [newName, setNewName] = useState('');
+	const onChangeText = useCallback((text) => setNewName(text), []);
 	const handlePress = useCallback(() => {
+		if (newName === '') {
+			return;
+		}
 
-		if (newName === '') return
-
-		dispatch(login(newName))
-		navigation.navigate('ColumnList')
-	}, [dispatch, newName])
+		dispatch(login(newName));
+		navigation.navigate('ColumnList');
+	}, [dispatch, newName, navigation]);
 
 	return (
 		<View style={styles.wrap}>
@@ -33,22 +34,16 @@ export default ({navigation}: AuthScreenProps) => {
 				placeholder="Username"
 				onChangeText={onChangeText}
 			/>
-			<TextInput
-				style={styles.textInput}
-				placeholder="Email"
-			/>
-			<TextInput
-				style={styles.textInput}
-				placeholder="Password"
-			/>
+			<TextInput style={styles.textInput} placeholder="Email" />
+			<TextInput style={styles.textInput} placeholder="Password" />
 			<ShowHideButton
 				text={'Sign in'}
 				onPress={handlePress}
 				styles={ShowHideButtonStyles}
 			/>
 		</View>
-	)
-}
+	);
+};
 
 const styles = StyleSheet.create({
 	wrap: {
@@ -56,10 +51,10 @@ const styles = StyleSheet.create({
 	},
 	textInput: {
 		borderWidth: 1,
-		borderStyle: "solid",
+		borderStyle: 'solid',
 		borderColor: '#E5E5E5',
 		borderRadius: 10,
 		marginTop: 10,
-		padding: 15
-	}
-})
+		padding: 15,
+	},
+});

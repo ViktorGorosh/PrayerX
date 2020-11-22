@@ -11,6 +11,7 @@ export default StyleSheet.create({
 	text: {
 		textAlign: 'center',
 		fontSize: 12,
+		color: '#FFFFFF',
 		textTransform: 'uppercase',
 	}
 })
