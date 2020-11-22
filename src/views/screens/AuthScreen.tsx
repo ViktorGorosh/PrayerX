@@ -1,10 +1,12 @@
 import React, {useCallback, useState} from 'react';
 import {
-	View, StyleSheet, TextInput, TouchableOpacity, Text
+	View, StyleSheet, TextInput
 } from 'react-native';
 import {useDispatch} from 'react-redux';
 
 import {login } from '../../state/ducks/user';
+
+import {ShowHideButton, styles as ShowHideButtonStyles} from "../components/ShowHideButton";
 
 interface AuthScreenProps {
 	navigation: any
@@ -16,7 +18,7 @@ export default ({navigation}: AuthScreenProps) => {
 
 	const [newName, setNewName] = useState('')
 	const onChangeText = useCallback(text => setNewName(text),[])
-	const onPress = useCallback(() => {
+	const handlePress = useCallback(() => {
 
 		if (newName === '') return
 
@@ -39,12 +41,11 @@ export default ({navigation}: AuthScreenProps) => {
 				style={styles.textInput}
 				placeholder="Password"
 			/>
-			<TouchableOpacity
-				style={styles.signInBtn}
-				onPress={onPress}
-			>
-				<Text style={styles.buttonText}>Sign in</Text>
-			</TouchableOpacity>
+			<ShowHideButton
+				text={'Sign in'}
+				onPress={handlePress}
+				styles={ShowHideButtonStyles}
+			/>
 		</View>
 	)
 }
@@ -60,17 +61,5 @@ const styles = StyleSheet.create({
 		borderRadius: 10,
 		marginTop: 10,
 		padding: 15
-	},
-	signInBtn: {
-		backgroundColor: '#BFB393',
-		borderRadius: 15,
-		marginTop: 10,
-		paddingHorizontal: 17,
-		paddingVertical: 8
-	},
-	buttonText: {
-		textAlign: 'center',
-		fontSize: 12,
-		textTransform: 'uppercase',
 	}
 })
