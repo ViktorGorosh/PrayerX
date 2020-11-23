@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React from 'react';
 import {
 	ScrollView, Text, View
 } from 'react-native';
@@ -7,14 +7,9 @@ import {useSelector} from "react-redux";
 import {selectColumns} from "../../state/ducks/column";
 import {Column} from "../../interfaces/column";
 
-interface ColumnListScreenProps {
-	navigation: any,
-}
-
-export default ({navigation}: ColumnListScreenProps) => {
+export default ({navigation}: any) => {
 
 	const columns: Array<Column> = useSelector(selectColumns)
-	const onPress = useCallback(() => {navigation.navigate('ColumnItem')}, [navigation])
 
 	return (
 		<ScrollView style={styles.columnList}>
@@ -26,7 +21,7 @@ export default ({navigation}: ColumnListScreenProps) => {
 					>
 						<Text
 							style={styles.columnText}
-							onPress={onPress}
+							onPress={() => navigation.navigate('ColumnItem', {column})}
 						>{column.title}</Text>
 					</View>
 				)
@@ -38,6 +33,7 @@ export default ({navigation}: ColumnListScreenProps) => {
 const styles = {
 	columnList: {
 		padding: 15,
+		backgroundColor: '#FFFFFF',
 	},
 	columnItem: {
 		backgroundColor: '#FFFFFF',

@@ -1,5 +1,5 @@
 import React, {useCallback, useState} from 'react';
-import {View, StyleSheet, TextInput} from 'react-native';
+import {StyleSheet, TextInput, ScrollView} from 'react-native';
 import {useDispatch} from 'react-redux';
 
 import {login} from '../../state/ducks/user';
@@ -16,6 +16,7 @@ export default ({navigation}: AuthScreenProps) => {
 	const [newName, setNewName] = useState('');
 	const onChangeText = useCallback((text) => setNewName(text), []);
 	const handlePress = useCallback(() => {
+
 		if (newName === '') {
 			return;
 		}
@@ -25,7 +26,7 @@ export default ({navigation}: AuthScreenProps) => {
 	}, [dispatch, newName, navigation]);
 
 	return (
-		<View style={styles.wrap}>
+		<ScrollView style={styles.wrap}>
 			<TextInput
 				style={styles.textInput}
 				placeholder="Username"
@@ -38,13 +39,14 @@ export default ({navigation}: AuthScreenProps) => {
 				styles={mainButtonStyles}
 				onPress={handlePress}
 			/>
-		</View>
+		</ScrollView>
 	);
 };
 
 const styles = StyleSheet.create({
 	wrap: {
 		padding: 15,
+		backgroundColor: '#FFFFFF',
 	},
 	textInput: {
 		borderWidth: 1,

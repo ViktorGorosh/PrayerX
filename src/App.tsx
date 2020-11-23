@@ -1,5 +1,5 @@
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import {
@@ -13,7 +13,7 @@ const Stack = createStackNavigator();
 
 export default () => {
 	return (
-		<NavigationContainer>
+		<NavigationContainer theme={DefaultTheme}>
 			<Stack.Navigator>
 				<Stack.Screen name={'Auth'} component={AuthScreen} />
 				<Stack.Screen name={'ColumnList'} component={ColumnListScreen} />

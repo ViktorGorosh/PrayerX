@@ -1,17 +1,52 @@
 import React from 'react';
 import {
-	Text, View, Button
+	Text, View, ScrollView
 } from 'react-native';
+import {useSelector} from "react-redux";
 
-interface ColumnItemScreenProps {
-	navigation: any,
+import {selectColumnCards} from "../../state/ducks/card";
+import {Card} from "../../interfaces/card";
+
+export default ({route, navigation}: any) => {
+
+	const { column }  = route.params
+
+	const cards: Array<Card> = useSelector(state => selectColumnCards(state, column.id))
+
+	return (
+		<ScrollView style={styles.cardList}>
+			{cards.map((card) => {
+				return (
+					<View
+						style={styles.cardItem}
+						key={card.id}
+					>
+
+						<Text style={styles.cardText}>
+							{card.title}
+						</Text>
+					</View>
+				)
+			})}
+		</ScrollView>
+	)
 }
 
-export default ({navigation}: ColumnItemScreenProps) => {
-	return (
-		<View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
-			<Text>ColumnItem</Text>
-			<Button title={'Go to card item'} onPress={() => navigation.navigate('CardItem')}/>
-		</View>
-	)
+const styles = {
+	cardList: {
+		padding: 15,
+		backgroundColor: '#FFFFFF',
+	},
+	cardItem: {
+		backgroundColor: '#FFFFFF',
+		borderBottomWidth: 1,
+		borderColor: '#E5E5E5',
+		paddingHorizontal: 15,
+		paddingVertical: 20,
+		marginTop: 10,
+	},
+	cardText: {
+		fontSize: 17,
+		color: '#514D47',
+	}
 }
