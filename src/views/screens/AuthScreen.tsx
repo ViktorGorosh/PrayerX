@@ -5,9 +5,9 @@ import {useDispatch} from 'react-redux';
 import {login} from '../../state/ducks/user';
 
 import {
-	ShowHideButton,
-	styles as ShowHideButtonStyles,
-} from '../components/ShowHideButton';
+	MainButton,
+	styles as MainButtonStyles,
+} from '../components/MainButton';
 
 interface AuthScreenProps {
 	navigation: any;
@@ -36,10 +36,10 @@ export default ({navigation}: AuthScreenProps) => {
 			/>
 			<TextInput style={styles.textInput} placeholder="Email" />
 			<TextInput style={styles.textInput} placeholder="Password" />
-			<ShowHideButton
+			<MainButton
 				text={'Sign in'}
 				onPress={handlePress}
-				styles={ShowHideButtonStyles}
+				styles={MainButtonStyles}
 			/>
 		</View>
 	);
