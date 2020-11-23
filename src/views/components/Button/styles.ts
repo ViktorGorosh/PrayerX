@@ -1,6 +1,6 @@
 import {StyleSheet} from "react-native";
 
-export default StyleSheet.create({
+export const mainButtonStyles = StyleSheet.create({
 	button: {
 		backgroundColor: '#BFB393',
 		borderRadius: 15,

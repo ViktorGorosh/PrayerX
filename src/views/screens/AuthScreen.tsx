@@ -4,10 +4,7 @@ import {useDispatch} from 'react-redux';
 
 import {login} from '../../state/ducks/user';
 
-import {
-	MainButton,
-	styles as MainButtonStyles,
-} from '../components/MainButton';
+import {Button, mainButtonStyles} from '../components/Button';
 
 interface AuthScreenProps {
 	navigation: any;
@@ -36,10 +33,10 @@ export default ({navigation}: AuthScreenProps) => {
 			/>
 			<TextInput style={styles.textInput} placeholder="Email" />
 			<TextInput style={styles.textInput} placeholder="Password" />
-			<MainButton
+			<Button
 				text={'Sign in'}
+				styles={mainButtonStyles}
 				onPress={handlePress}
-				styles={MainButtonStyles}
 			/>
 		</View>
 	);
