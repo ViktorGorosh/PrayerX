@@ -5,12 +5,9 @@ import {useDispatch} from 'react-redux';
 import {login} from '../../state/ducks/user';
 
 import {Button, mainButtonStyles} from '../components/Button';
+import {StackScreenProps} from '@react-navigation/stack';
 
-interface AuthScreenProps {
-  navigation: any;
-}
-
-export default ({navigation}: AuthScreenProps) => {
+export default ({navigation}: StackScreenProps<any>) => {
   const dispatch = useDispatch();
 
   const [newName, setNewName] = useState('');
@@ -45,8 +42,9 @@ export default ({navigation}: AuthScreenProps) => {
 const styles = StyleSheet.create({
   wrap: {
     flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
     justifyContent: 'center',
-    alignItems: 'center',
     padding: 15,
     backgroundColor: '#FFFFFF',
   },
@@ -57,5 +55,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: 10,
     padding: 15,
+    flexBasis: '100%',
   },
 });
