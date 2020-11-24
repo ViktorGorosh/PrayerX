@@ -1,6 +1,6 @@
-import reducer from './reducers'
+import reducer from './reducers';
 
-export {selectCardComments} from './selectors'
-export {addComment, deleteComment, updateComment} from './actions'
+export {selectCardComments} from './selectors';
+export {addComment, deleteComment, updateComment} from './actions';
 
-export default reducer
+export default reducer;

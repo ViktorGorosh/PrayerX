@@ -1,3 +1,3 @@
-import {card} from "./reducers";
+import {card} from './reducers';
 
-export const {addCard, deleteCard, updateCard} = card.actions
+export const {addCard, deleteCard, updateCard} = card.actions;

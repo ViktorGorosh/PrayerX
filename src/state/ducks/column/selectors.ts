@@ -1,1 +1,1 @@
-export const selectColumns = (state: { columns: any; }) => state.columns
+export const selectColumns = (state: {columns: any}) => state.columns;
