@@ -1,21 +1,35 @@
 import React from 'react';
-import {ScrollView, Text, View} from 'react-native';
+import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import {useSelector} from 'react-redux';
 
 import {selectColumns} from '../../state/ducks/column';
 import {Column} from '../../interfaces/column';
+import {StackNavigationOptions} from "@react-navigation/stack";
+import {IconButton} from "../components/IconButton";
+
+interface ColumnItemScreenOptions extends StackNavigationOptions {
+  column: Column;
+}
 
 export default ({navigation}: any) => {
   const columns: Array<Column> = useSelector(selectColumns);
 
   return (
-    <ScrollView style={styles.columnList}>
+    <ScrollView style={styles.container}>
       {columns.map((column) => {
+        const options: ColumnItemScreenOptions = {
+          column,
+          headerRight: () => (
+            <TouchableOpacity >
+              <Image source={require('../../img/add.png')} />
+            </TouchableOpacity>
+          )
+        };
         return (
           <View style={styles.columnItem} key={column.id}>
             <Text
               style={styles.columnText}
-              onPress={() => navigation.navigate('ColumnItem', {column})}>
+              onPress={() => navigation.navigate('ColumnItem', options)}>
               {column.title}
             </Text>
           </View>
@@ -26,7 +40,7 @@ export default ({navigation}: any) => {
 };
 
 const styles = {
-  columnList: {
+  container: {
     padding: 15,
     backgroundColor: '#FFFFFF',
   },

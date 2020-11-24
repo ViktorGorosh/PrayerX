@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, View, ScrollView, Image} from 'react-native';
+import {Text, View, ScrollView} from 'react-native';
 import {useSelector} from 'react-redux';
 
 import {selectColumnCards} from '../../state/ducks/card';
@@ -17,10 +17,6 @@ export default ({route, navigation}: any) => {
       {cards.map((card) => {
         return (
           <View style={styles.cardItem} key={card.id}>
-            <Image
-              source={{uri: 'https://reactjs.org/logo-og.png'}}
-              style={{width: 40, height: 40}}
-            />
             <Text style={styles.cardText}>{card.title}</Text>
           </View>
         );

@@ -1,11 +1,10 @@
 import React, {useCallback, useState} from 'react';
 import {StyleSheet, TextInput, View} from 'react-native';
+import {StackScreenProps} from '@react-navigation/stack';
 import {useDispatch} from 'react-redux';
 
 import {login} from '../../state/ducks/user';
-
 import {Button, mainButtonStyles} from '../components/Button';
-import {StackScreenProps} from '@react-navigation/stack';
 
 export default ({navigation}: StackScreenProps<any>) => {
   const dispatch = useDispatch();

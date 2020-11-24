@@ -10,3 +10,7 @@ export interface ButtonProps {
   styles: ButtonStyles;
   onPress: () => void;
 }
+
+export interface IconButtonProps {
+  onPress: () => void;
+}
