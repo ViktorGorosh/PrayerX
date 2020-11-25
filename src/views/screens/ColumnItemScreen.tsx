@@ -4,6 +4,7 @@ import {useSelector} from 'react-redux';
 
 import {selectColumnCards} from '../../state/ducks/card';
 import {Card} from '../../interfaces/card';
+import {CardInput} from "../components/CardInput";
 
 export default ({route, navigation}: any) => {
   const {column} = route.params;
@@ -14,6 +15,7 @@ export default ({route, navigation}: any) => {
 
   return (
     <ScrollView style={styles.cardList}>
+      <CardInput />
       {cards.map((card) => {
         return (
             <View style={styles.cardItem} key={column.id}>
