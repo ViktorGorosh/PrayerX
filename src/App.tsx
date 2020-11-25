@@ -9,8 +9,6 @@ import {
   ColumnItemScreen,
 } from './views/screens';
 import {Column} from "./interfaces/column";
-import {Alert, Text} from "react-native";
-import { IconButton } from './views/components/IconButton';
 
 // TODO: Fix RootStackParamList error in createStackNavigator
 interface RootStackParamList {
@@ -28,7 +26,6 @@ const headerOptions: StackNavigationOptions = {
   headerRightContainerStyle: {
     paddingRight: 20
   },
-  headerRight: () => (<IconButton onPress={() => Alert.alert('pressed')}/>)
 }
 
 export default () => {

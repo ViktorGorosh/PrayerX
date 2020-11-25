@@ -12,5 +12,6 @@ export interface ButtonProps {
 }
 
 export interface IconButtonProps {
+  type: 'add' | 'settings'
   onPress: () => void;
 }

@@ -1,35 +1,32 @@
 import React from 'react';
-import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {Alert, ScrollView, Text, View} from 'react-native';
 import {useSelector} from 'react-redux';
-
+import {StackScreenProps} from "@react-navigation/stack";
 import {selectColumns} from '../../state/ducks/column';
 import {Column} from '../../interfaces/column';
-import {StackNavigationOptions} from "@react-navigation/stack";
 import {IconButton} from "../components/IconButton";
 
-interface ColumnItemScreenOptions extends StackNavigationOptions {
-  column: Column;
-}
+export default ({navigation}: StackScreenProps<any>) => {
 
-export default ({navigation}: any) => {
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <IconButton onPress={() => Alert.alert('hi')} type={'add'} />
+      ),
+    });
+  }, [navigation]);
+
   const columns: Array<Column> = useSelector(selectColumns);
 
   return (
     <ScrollView style={styles.container}>
       {columns.map((column) => {
-        const options: ColumnItemScreenOptions = {
-          column,
-          headerRight: () => (
-            <TouchableOpacity >
-              <Image source={require('../../img/add.png')} />
-            </TouchableOpacity>
-          )
-        };
         return (
           <View style={styles.columnItem} key={column.id}>
             <Text
               style={styles.columnText}
-              onPress={() => navigation.navigate('ColumnItem', options)}>
+              onPress={() => navigation.navigate('ColumnItem', {column})}
+            >
               {column.title}
             </Text>
           </View>
