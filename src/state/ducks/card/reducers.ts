@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {v4 as uuidv4} from 'uuid';
-import {Card} from 'interfaces/card';
+import {Card} from '../../../interfaces/card';
 import {AddCardAction, DeleteCardAction, UpdateCardAction} from './types';
 
 const initialState: Array<Card> = [

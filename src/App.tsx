@@ -7,6 +7,7 @@ import {
   CardItemScreen,
   ColumnListScreen,
   ColumnItemScreen,
+  AddColumnScreen
 } from './views/screens';
 import {Column} from "./interfaces/column";
 
@@ -56,6 +57,11 @@ export default () => {
         <Stack.Screen
           name={'CardItem'}
           component={CardItemScreen}
+          options={headerOptions}
+        />
+        <Stack.Screen
+          name={'Add column'}
+          component={AddColumnScreen}
           options={headerOptions}
         />
       </Stack.Navigator>

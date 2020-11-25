@@ -4,7 +4,7 @@ import {StackScreenProps} from '@react-navigation/stack';
 import {useDispatch} from 'react-redux';
 
 import {login} from '../../state/ducks/user';
-import {Button, mainButtonStyles} from '../components/Button';
+import {Button, mainButtonStyles} from '../components/TextButton';
 
 export default ({navigation}: StackScreenProps<any>) => {
   const dispatch = useDispatch();

@@ -1,4 +1,4 @@
-import {Column} from 'interfaces/column';
+import {Column} from '../../../interfaces/column';
 
 export interface ChangeTitleAction {
   type: string;
@@ -6,4 +6,9 @@ export interface ChangeTitleAction {
     id: Column['id'];
     newTitle: Column['title'];
   };
+}
+
+export interface AddColumnAction {
+  type: string;
+  payload: string;
 }

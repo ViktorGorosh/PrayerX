@@ -5,7 +5,7 @@ export interface ButtonStyles {
   text: TextStyle;
 }
 
-export interface ButtonProps {
+export interface TextButtonProps {
   text: string;
   styles: ButtonStyles;
   onPress: () => void;

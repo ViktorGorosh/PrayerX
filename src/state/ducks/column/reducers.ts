@@ -1,6 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {Column} from 'interfaces/column';
-import {ChangeTitleAction} from './types';
+import {Column} from '../../../interfaces/column';
+import {ChangeTitleAction, AddColumnAction} from './types';
+import {v4 as uuidv4} from 'uuid';
 
 const initialState: Array<Column> = [
   {id: '4cc2beae-3d4f-4363-a22a-12a6cebf37b9', title: 'TO DO'},
@@ -22,6 +23,15 @@ export const column = createSlice({
         return column;
       });
     },
+    addColumn: (state, action: AddColumnAction) => {
+      return [
+        ...state,
+        {
+          id: uuidv4(),
+          title: action.payload
+        }
+      ]
+    }
   },
 });
 
