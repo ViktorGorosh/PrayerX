@@ -24,6 +24,7 @@ interface RootStackParamList {
 const Stack = createStackNavigator();
 
 export default () => {
+
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{
@@ -46,7 +47,6 @@ export default () => {
           initialParams={{}}
 
           options={({route}) => ({
-
             // @ts-ignore
             title: route.params.column.title,
           })}

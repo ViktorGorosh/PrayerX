@@ -4,6 +4,7 @@ import {useDispatch} from "react-redux";
 import {Button, mainButtonStyles} from "../components/TextButton";
 import {addColumn} from '../../state/ducks/column'
 import {StackScreenProps} from "@react-navigation/stack";
+import generalStyles from './styles'
 
 export default ({navigation}: StackScreenProps<any>) => {
 
@@ -26,7 +27,7 @@ export default ({navigation}: StackScreenProps<any>) => {
     <View style={styles.container}>
       <View style={styles.inputWrap}>
         <TextInput
-          style={styles.input}
+          style={generalStyles.mainText}
           placeholder={'Add new column title...'}
           autoFocus={true}
 
@@ -59,8 +60,8 @@ const styles = StyleSheet.create({
     padding: 5,
     flexBasis: '100%'
   },
-  input: {
-    fontSize: 17,
-    color: '#514D47',
-  }
+  // input: {
+  //   fontSize: 17,
+  //   color: '#514D47',
+  // }
 })

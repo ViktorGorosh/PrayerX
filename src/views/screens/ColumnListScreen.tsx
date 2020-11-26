@@ -5,6 +5,7 @@ import {StackScreenProps} from "@react-navigation/stack";
 import {IconButton} from "../components/IconButton";
 import {selectColumns} from '../../state/ducks/column';
 import {Column} from '../../interfaces/column';
+import generalStyles from './styles'
 
 export default ({navigation}: StackScreenProps<any>) => {
 
@@ -19,13 +20,13 @@ export default ({navigation}: StackScreenProps<any>) => {
   const columns: Array<Column> = useSelector(selectColumns);
 
   return (
-    <View style={styles.container}>
+    <View style={generalStyles.container}>
       <ScrollView >
         {columns.map((column) => {
           return (
             <View style={styles.columnItem} key={column.id}>
               <Text
-                style={styles.columnText}
+                style={generalStyles.mainText}
                 onPress={() => navigation.navigate('ColumnItem', {column})}
               >
                 {column.title}
@@ -39,11 +40,10 @@ export default ({navigation}: StackScreenProps<any>) => {
 };
 
 const styles = {
-  container: {
-    flex: 1,
-    padding: 15,
-    backgroundColor: '#FFFFFF',
-  },
+  // container: {
+  //   padding: 15,
+  //   backgroundColor: '#FFFFFF',
+  // },
   columnItem: {
     backgroundColor: '#FFFFFF',
     borderWidth: 1,
@@ -53,8 +53,8 @@ const styles = {
     paddingVertical: 20,
     marginTop: 10,
   },
-  columnText: {
-    fontSize: 17,
-    color: '#514D47',
-  },
+  // columnText: {
+  //   fontSize: 17,
+  //   color: '#514D47',
+  // },
 };
