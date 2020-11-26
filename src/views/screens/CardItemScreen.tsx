@@ -10,12 +10,20 @@ import {Comment} from "../../interfaces/comment";
 import {Card} from "../../interfaces/card";
 import generalStyles from './styles'
 
-export default ({route}: StackScreenProps<any>) => {
+export default ({route, navigation}: StackScreenProps<any>) => {
 
   // @ts-ignore
   const card: Card = route.params.card
   // @ts-ignore
   const {colTitle} = route.params
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <IconButton onPress={() => null} type={'prayer'} />
+      ),
+    });
+  }, [navigation]);
 
   const dispatch = useDispatch()
 

@@ -8,6 +8,7 @@ export default ({onPress, type}: IconButtonProps) => {
   const add = require('../../../img/add.png')
   const settings = require('../../../img/settings.png')
   const comment = require('../../../img/comment.png')
+  const prayer = require('../../../img/prayer.png')
 
   let fileName;
 
@@ -20,6 +21,9 @@ export default ({onPress, type}: IconButtonProps) => {
       break;
     case "comment":
       fileName = comment;
+      break;
+    case "prayer":
+      fileName = prayer;
       break;
   }
 

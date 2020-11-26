@@ -4,6 +4,7 @@ import {StackScreenProps} from "@react-navigation/stack";
 import {useSelector} from 'react-redux';
 import {selectColumnCards} from '../../state/ducks/card';
 import {CustomTextInput} from "../components/CustomTextInput";
+import {IconButton} from "../components/IconButton";
 import {Card} from '../../interfaces/card';
 import {Column} from "../../interfaces/column";
 import generalStyles from './styles'
@@ -12,6 +13,14 @@ export default ({route, navigation}: StackScreenProps<any> ) => {
 
   // @ts-ignore
   const column: Column = route.params.column;
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <IconButton onPress={() => null} type={'settings'} />
+      ),
+    });
+  }, [navigation]);
 
   const cards: Array<Card> = useSelector((state) =>
     selectColumnCards(state, column.id),
