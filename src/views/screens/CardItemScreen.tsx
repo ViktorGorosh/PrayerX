@@ -1,8 +1,8 @@
 import React, {useCallback, useState} from 'react';
-import {Image, ScrollView, StyleSheet, Text, TextInput, View} from 'react-native';
-import {useSelector} from "react-redux";
+import {Alert, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {StackScreenProps} from "@react-navigation/stack";
-import {selectCardComments} from "../../state/ducks/comment";
+import {useDispatch, useSelector} from "react-redux";
+import {selectCardComments, deleteComment} from "../../state/ducks/comment";
 import {CustomTextInput} from "../components/CustomTextInput";
 import {CommentItem} from "../components/CommentItem";
 import {IconButton} from "../components/IconButton";
@@ -17,6 +17,8 @@ export default ({route}: StackScreenProps<any>) => {
   // @ts-ignore
   const {colTitle} = route.params
 
+  const dispatch = useDispatch()
+
   const comments: Array<Comment> = useSelector(state => selectCardComments(state, card.id))
   const [isActive, setActive] = useState(false)
 
@@ -24,6 +26,7 @@ export default ({route}: StackScreenProps<any>) => {
 
   return (
     // Flexbox problem was about this ScrollView changed on View
+    // TODO: change ScrollView to Flatlist with Separator comp
     <ScrollView style={styles.container}>
       <View style={styles.colTitle} >
         <Image source={require('../../img/vertical-line.png')} style={generalStyles.vertLine}/>

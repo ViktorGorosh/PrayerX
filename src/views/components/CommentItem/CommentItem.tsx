@@ -1,7 +1,9 @@
 import React, {useCallback, useState} from "react";
 import {Image, StyleSheet, Text, View} from "react-native";
+import Swipeable from "react-native-gesture-handler/Swipeable";
 import {useDispatch} from 'react-redux'
 import {updateComment, deleteComment} from "../../../state/ducks/comment";
+import {RightAction} from "../RightAction";
 import {Comment} from "../../../interfaces/comment";
 import generalStyles from "../../screens/styles";
 
@@ -29,17 +31,19 @@ export default ({comment}: CommentItemProps) => {
 	},[comment.id, dispatch])
 
 	return (
-		<View style={styles.commentItem} >
-			<Image source={require('../../../img/avatar.png')} />
-			<View style={styles.textWrap}>
-				<Text style={styles.author}>
-					{comment.author}
-				</Text>
-				<Text style={generalStyles.mainText}>
-					{comment.text}
-				</Text>
+		<Swipeable key={comment.id} renderRightActions={() => <RightAction onPress={onCommentDelete}/>}>
+			<View style={styles.commentItem} >
+				<Image source={require('../../../img/avatar.png')} />
+				<View style={styles.textWrap}>
+					<Text style={styles.author}>
+						{comment.author}
+					</Text>
+					<Text style={generalStyles.mainText}>
+						{comment.text}
+					</Text>
+				</View>
 			</View>
-		</View>
+		</Swipeable>
 	)
 }
 
