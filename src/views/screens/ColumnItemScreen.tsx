@@ -3,7 +3,7 @@ import {Text, View, ScrollView, Image, StyleSheet} from 'react-native';
 import {StackScreenProps} from "@react-navigation/stack";
 import {useSelector} from 'react-redux';
 import {selectColumnCards} from '../../state/ducks/card';
-import {CardInput} from "../components/CardInput";
+import {CustomTextInput} from "../components/CustomTextInput";
 import {Card} from '../../interfaces/card';
 import {Column} from "../../interfaces/column";
 import generalStyles from './styles'
@@ -19,7 +19,7 @@ export default ({route, navigation}: StackScreenProps<any> ) => {
 
   return (
     <ScrollView style={generalStyles.container}>
-      <CardInput />
+      <CustomTextInput />
       {cards.map((card) => {
         return (
             <View style={styles.cardItem} key={card.id}>

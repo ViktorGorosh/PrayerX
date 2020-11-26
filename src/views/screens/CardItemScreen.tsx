@@ -3,7 +3,7 @@ import {Image, ScrollView, StyleSheet, Text, TextInput, View} from 'react-native
 import {useSelector} from "react-redux";
 import {StackScreenProps} from "@react-navigation/stack";
 import {selectCardComments} from "../../state/ducks/comment";
-import {CardInput} from "../components/CardInput";
+import {CustomTextInput} from "../components/CustomTextInput";
 import {CommentItem} from "../components/CommentItem";
 import {IconButton} from "../components/IconButton";
 import {Comment} from "../../interfaces/comment";
@@ -35,8 +35,7 @@ export default ({route}: StackScreenProps<any>) => {
       </View>
       <View style={styles.wrap}>
         <Text style={styles.subtitle}>Description</Text>
-        {/*TODO: rename CardInput comp into CustomTextInput*/}
-        <CardInput />
+        <CustomTextInput />
         <Text style={generalStyles.mainText}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex fugiat molestiae quas tenetur ullam, velit.</Text>
       </View>
       <View style={styles.wrap}>
