@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {Text, View, ScrollView, Image} from 'react-native';
 import {useSelector} from 'react-redux';
 
 import {selectColumnCards} from '../../state/ducks/card';
-import {Card} from '../../interfaces/card';
 import {CardInput} from "../components/CardInput";
+import {Card} from '../../interfaces/card';
 
 export default ({route, navigation}: any) => {
   const {column} = route.params;
@@ -18,11 +18,16 @@ export default ({route, navigation}: any) => {
       <CardInput />
       {cards.map((card) => {
         return (
-            <View style={styles.cardItem} key={column.id}>
+            <View style={styles.cardItem} key={card.id}>
                 {/*TODO: flexContainer style type error*/}
                 <View style={{flex: 1, flexDirection: 'row'}} >
                   <Image source={require('../../img/vertical-line.png')} style={styles.vertLine}/>
-                  <Text style={styles.cardText}>{card.title}</Text>
+                  <Text
+                    style={styles.cardText}
+                    onPress={() => navigation.navigate('CardItem', {card})}
+                  >
+                    {card.title}
+                  </Text>
                 </View>
             </View>
         );

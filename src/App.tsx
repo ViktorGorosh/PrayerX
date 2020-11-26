@@ -1,6 +1,6 @@
 import React from 'react';
-import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
-import {createStackNavigator, StackNavigationOptions} from '@react-navigation/stack';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 
 import {
   AuthScreen,
@@ -22,26 +22,23 @@ interface RootStackParamList {
 }
 
 const Stack = createStackNavigator();
-const headerOptions: StackNavigationOptions = {
-  headerTitleAlign: "center",
-  headerRightContainerStyle: {
-    paddingRight: 20
-  },
-}
 
 export default () => {
   return (
-    <NavigationContainer theme={DefaultTheme}>
-      <Stack.Navigator>
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{
+        headerTitleAlign: "center",
+        headerRightContainerStyle: {
+          paddingRight: 20
+        },
+      }}>
         <Stack.Screen
           name={'Auth'}
           component={AuthScreen}
-          options={headerOptions}
         />
         <Stack.Screen
           name={'ColumnList'}
           component={ColumnListScreen}
-          options={headerOptions}
         />
         <Stack.Screen
           name={'ColumnItem'}
@@ -49,7 +46,7 @@ export default () => {
           initialParams={{}}
 
           options={({route}) => ({
-            ...headerOptions,
+
             // @ts-ignore
             title: route.params.column.title,
           })}
@@ -57,12 +54,19 @@ export default () => {
         <Stack.Screen
           name={'CardItem'}
           component={CardItemScreen}
-          options={headerOptions}
+          options={({route}) => ({
+            // @ts-ignore
+            title: route.params.card.title,
+            headerStyle: {
+              backgroundColor: '#BFB393',
+            },
+            headerTintColor: 'white',
+            headerTitleAlign: 'left',
+          })}
         />
         <Stack.Screen
           name={'Add column'}
           component={AddColumnScreen}
-          options={headerOptions}
         />
       </Stack.Navigator>
     </NavigationContainer>
