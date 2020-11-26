@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {v4 as uuidv4} from 'uuid';
-import {Comment} from 'interfaces/comment';
+import {Comment} from '../../../interfaces/comment';
 import {
   AddCommentAction,
   DeleteCommentAction,

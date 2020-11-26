@@ -9,6 +9,7 @@ export default StyleSheet.create({
     color: '#514D47',
   },
   container: {
+    flex: 1,
     padding: 15,
     backgroundColor: '#FFFFFF',
   },

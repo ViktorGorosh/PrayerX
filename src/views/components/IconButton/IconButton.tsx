@@ -7,6 +7,7 @@ export default ({onPress, type}: IconButtonProps) => {
   // require() does not work with dynamic values
   const add = require('../../../img/add.png')
   const settings = require('../../../img/settings.png')
+  const comment = require('../../../img/comment.png')
 
   let fileName;
 
@@ -16,6 +17,9 @@ export default ({onPress, type}: IconButtonProps) => {
       break;
     case "settings":
       fileName = settings;
+      break;
+    case "comment":
+      fileName = comment;
       break;
   }
 

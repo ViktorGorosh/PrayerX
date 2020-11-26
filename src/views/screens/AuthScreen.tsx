@@ -39,6 +39,7 @@ export default ({navigation}: StackScreenProps<any>) => {
 };
 
 const styles = StyleSheet.create({
+  // TODO: simplify these styles
   wrap: {
     flex: 1,
     flexDirection: 'row',

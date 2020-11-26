@@ -1,13 +1,17 @@
 import React from 'react';
-import {Text, View, ScrollView, Image} from 'react-native';
+import {Text, View, ScrollView, Image, StyleSheet} from 'react-native';
+import {StackScreenProps} from "@react-navigation/stack";
 import {useSelector} from 'react-redux';
 import {selectColumnCards} from '../../state/ducks/card';
 import {CardInput} from "../components/CardInput";
 import {Card} from '../../interfaces/card';
+import {Column} from "../../interfaces/column";
 import generalStyles from './styles'
 
-export default ({route, navigation}: any ) => {
-  const {column} = route.params;
+export default ({route, navigation}: StackScreenProps<any> ) => {
+
+  // @ts-ignore
+  const column: Column = route.params.column;
 
   const cards: Array<Card> = useSelector((state) =>
     selectColumnCards(state, column.id),
@@ -19,8 +23,7 @@ export default ({route, navigation}: any ) => {
       {cards.map((card) => {
         return (
             <View style={styles.cardItem} key={card.id}>
-                {/*TODO: flexContainer style type error*/}
-                <View style={{flex: 1, flexDirection: 'row'}} >
+                <View style={generalStyles.flexContainer} >
                   <Image source={require('../../img/vertical-line.png')} style={generalStyles.vertLine}/>
                   <Text
                     style={generalStyles.mainText}
@@ -36,11 +39,7 @@ export default ({route, navigation}: any ) => {
   );
 };
 
-const styles = {
-  // container: {
-  //   padding: 15,
-  //   backgroundColor: '#FFFFFF',
-  // },
+const styles = StyleSheet.create({
   cardItem: {
     backgroundColor: '#FFFFFF',
     borderBottomWidth: 1,
@@ -49,15 +48,4 @@ const styles = {
     paddingVertical: 20,
     marginTop: 10,
   },
-  // flexContainer: {
-  //   flex: 1,
-  //   flexDirection: 'row',
-  // },
-  // cardText: {
-  //   fontSize: 17,
-  //   color: '#514D47',
-  // },
-  // vertLine: {
-  //   marginRight: 6,
-  // },
-};
+});
