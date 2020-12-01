@@ -4,7 +4,6 @@ import {StackScreenProps} from "@react-navigation/stack";
 import {useSelector} from 'react-redux';
 import {selectColumnCards} from '../../state/ducks/card';
 import {CustomTextInput} from "../components/CustomTextInput";
-import {IconButton} from "../components/IconButton";
 import {Card} from '../../interfaces/card';
 import {Column} from "../../interfaces/column";
 import generalStyles from './styles'

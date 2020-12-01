@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {User} from 'interfaces/user';
+import {User} from '../../../interfaces/user';
 import {LoginAction} from './types';
 
 const initialState: User = {
@@ -8,7 +8,7 @@ const initialState: User = {
 };
 
 export const user = createSlice({
-  name: 'auth',
+  name: 'user',
   initialState,
   reducers: {
     login: (state, action: LoginAction) => {
