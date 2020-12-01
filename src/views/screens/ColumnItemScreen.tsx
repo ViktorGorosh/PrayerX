@@ -14,14 +14,6 @@ export default ({route, navigation}: StackScreenProps<any> ) => {
   // @ts-ignore
   const column: Column = route.params.column;
 
-  React.useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <IconButton onPress={() => null} type={'settings'} />
-      ),
-    });
-  }, [navigation]);
-
   const cards: Array<Card> = useSelector((state) =>
     selectColumnCards(state, column.id),
   );

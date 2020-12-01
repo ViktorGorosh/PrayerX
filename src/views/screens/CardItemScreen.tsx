@@ -1,8 +1,8 @@
-import React, {useCallback, useState} from 'react';
-import {Alert, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import React from 'react';
+import {Image, ScrollView, StyleSheet, Text, TextInput, View} from 'react-native';
 import {StackScreenProps} from "@react-navigation/stack";
-import {useDispatch, useSelector} from "react-redux";
-import {selectCardComments, deleteComment} from "../../state/ducks/comment";
+import {useSelector} from "react-redux";
+import {selectCardComments} from "../../state/ducks/comment";
 import {CustomTextInput} from "../components/CustomTextInput";
 import {CommentItem} from "../components/CommentItem";
 import {IconButton} from "../components/IconButton";
@@ -10,27 +10,19 @@ import {Comment} from "../../interfaces/comment";
 import {Card} from "../../interfaces/card";
 import generalStyles from './styles'
 
-export default ({route, navigation}: StackScreenProps<any>) => {
+export default ({route}: StackScreenProps<any>) => {
 
   // @ts-ignore
   const card: Card = route.params.card
   // @ts-ignore
   const {colTitle} = route.params
 
-  React.useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <IconButton onPress={() => null} type={'prayer'} />
-      ),
-    });
-  }, [navigation]);
-
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
 
   const comments: Array<Comment> = useSelector(state => selectCardComments(state, card.id))
-  const [isActive, setActive] = useState(false)
-
-  const onToggleActive = useCallback(() => setActive(prevState => !prevState), []);
+  // const [isActive, setActive] = useState(false)
+  //
+  // const onToggleActive = useCallback(() => setActive(prevState => !prevState), []);
 
   return (
     // Flexbox problem was about this ScrollView changed on View
