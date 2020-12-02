@@ -3,9 +3,10 @@ import {StyleSheet, TextInput, View} from 'react-native';
 import {StackScreenProps} from '@react-navigation/stack';
 import {useDispatch, useSelector} from 'react-redux';
 
-import {signUp, selectUser} from '../../state/ducks/user';
+import {signUp, signIn, selectUser} from '../../state/ducks/user';
 import {Button, mainButtonStyles} from '../components/TextButton';
 import {User} from '../../interfaces/user';
+import generalStyles from './styles';
 
 export default ({navigation}: StackScreenProps<any>) => {
   const dispatch = useDispatch();
@@ -33,38 +34,42 @@ export default ({navigation}: StackScreenProps<any>) => {
     dispatch(signUp({name, email, password}));
   }, [dispatch, email, name, password]);
 
+  const onSignIn = useCallback(() => {
+    if (email === '' || password === '') {
+      return;
+    }
+
+    dispatch(signIn({email, password}));
+  }, [dispatch, email, password]);
+
   return (
-    <View style={styles.wrap}>
+    <View style={generalStyles.container}>
       <TextInput
         style={styles.textInput}
+        textContentType={'username'}
         placeholder="Username"
         onChangeText={onChangeName}
       />
       <TextInput
         style={styles.textInput}
+        textContentType={'emailAddress'}
         placeholder="Email"
         onChangeText={onChangeEmail}
       />
       <TextInput
         style={styles.textInput}
+        textContentType={'password'}
+        secureTextEntry={true}
         placeholder="Password"
         onChangeText={onChangePassword}
       />
-      <Button text={'Sign in'} styles={mainButtonStyles} onPress={onSignUp} />
+      <Button text={'Sign in'} styles={mainButtonStyles} onPress={onSignIn} />
+      <Button text={'Sign up'} styles={mainButtonStyles} onPress={onSignUp} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  // TODO: simplify these styles
-  wrap: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    padding: 15,
-    backgroundColor: '#FFFFFF',
-  },
   textInput: {
     borderWidth: 1,
     borderStyle: 'solid',
@@ -72,6 +77,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: 10,
     padding: 15,
-    flexBasis: '100%',
+    width: '100%',
   },
 });
