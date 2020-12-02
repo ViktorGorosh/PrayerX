@@ -28,10 +28,10 @@ export const column = createSlice({
         ...state,
         {
           id: uuidv4(),
-          title: action.payload
-        }
-      ]
-    }
+          title: action.payload,
+        },
+      ];
+    },
   },
 });
 

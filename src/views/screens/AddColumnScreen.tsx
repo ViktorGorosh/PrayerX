@@ -1,27 +1,26 @@
 import React, {useCallback, useState} from 'react';
-import {Alert, StyleSheet, TextInput, View} from "react-native";
-import {useDispatch} from "react-redux";
-import {Button, mainButtonStyles} from "../components/TextButton";
-import {addColumn} from '../../state/ducks/column'
-import {StackScreenProps} from "@react-navigation/stack";
-import generalStyles from './styles'
+import {StyleSheet, TextInput, View} from 'react-native';
+import {useDispatch} from 'react-redux';
+import {Button, mainButtonStyles} from '../components/TextButton';
+import {addColumn} from '../../state/ducks/column';
+import {StackScreenProps} from '@react-navigation/stack';
+import generalStyles from './styles';
 
 export default ({navigation}: StackScreenProps<any>) => {
+  const dispatch = useDispatch();
 
-  const dispatch = useDispatch()
+  const [newColTitle, setNewColTitle] = useState('');
 
-  const [newColTitle, setNewColTitle] = useState('')
-
-  const onChangeNewColTitle = useCallback(text => setNewColTitle(text), [])
+  const onChangeNewColTitle = useCallback((text) => setNewColTitle(text), []);
   const onColumnAdd = useCallback(() => {
+    if (newColTitle === '') {
+      return;
+    }
 
-    if (newColTitle === '') return;
-
-    setNewColTitle('')
-    dispatch( addColumn(newColTitle) )
-    navigation.goBack()
-  }, [dispatch, newColTitle])
-
+    setNewColTitle('');
+    dispatch(addColumn(newColTitle));
+    navigation.goBack();
+  }, [dispatch, navigation, newColTitle]);
 
   return (
     <View style={styles.container}>
@@ -30,18 +29,13 @@ export default ({navigation}: StackScreenProps<any>) => {
           style={generalStyles.mainText}
           placeholder={'Add new column title...'}
           autoFocus={true}
-
           onChangeText={onChangeNewColTitle}
         />
       </View>
-      <Button
-        styles={mainButtonStyles}
-        text={'Add'}
-        onPress={onColumnAdd}
-      />
+      <Button styles={mainButtonStyles} text={'Add'} onPress={onColumnAdd} />
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -58,10 +52,10 @@ const styles = StyleSheet.create({
     borderColor: '#E5E5E5',
     borderRadius: 4,
     padding: 5,
-    flexBasis: '100%'
+    flexBasis: '100%',
   },
   // input: {
   //   fontSize: 17,
   //   color: '#514D47',
   // }
-})
+});

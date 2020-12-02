@@ -1,4 +1,4 @@
-import {StyleSheet} from "react-native";
+import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   vertLine: {
@@ -17,4 +17,4 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
   },
-})
+});

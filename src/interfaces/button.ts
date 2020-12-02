@@ -12,6 +12,6 @@ export interface TextButtonProps {
 }
 
 export interface IconButtonProps {
-  type: 'add' | 'settings' | 'comment' | 'prayer'
+  type: 'add' | 'settings' | 'comment' | 'prayer';
   onPress: () => void;
 }

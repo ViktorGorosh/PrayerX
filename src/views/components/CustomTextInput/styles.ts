@@ -1,4 +1,4 @@
-import {StyleSheet} from "react-native";
+import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 14,
     paddingVertical: 2,
     borderWidth: 1,
-    borderStyle: "solid",
+    borderStyle: 'solid',
     borderColor: '#E5E5E5',
     borderRadius: 10,
   },
@@ -17,5 +17,5 @@ export const styles = StyleSheet.create({
     color: '#9C9C9C',
     marginLeft: 7,
     flexBasis: '100%',
-  }
-})
+  },
+});

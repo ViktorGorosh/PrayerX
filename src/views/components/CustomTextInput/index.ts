@@ -1,2 +1,2 @@
-export {default as CustomTextInput} from './CustomTextInput'
-export {styles} from './styles'
+export {default as CustomTextInput} from './CustomTextInput';
+export {styles} from './styles';

@@ -1,2 +1,2 @@
-export {default as RightAction} from './RightAction'
-export {default as styles} from './styles'
+export {default as RightAction} from './RightAction';
+export {default as styles} from './styles';

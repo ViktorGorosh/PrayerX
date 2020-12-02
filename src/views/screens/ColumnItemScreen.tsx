@@ -1,15 +1,14 @@
 import React from 'react';
 import {Text, View, ScrollView, Image, StyleSheet} from 'react-native';
-import {StackScreenProps} from "@react-navigation/stack";
+import {StackScreenProps} from '@react-navigation/stack';
 import {useSelector} from 'react-redux';
 import {selectColumnCards} from '../../state/ducks/card';
-import {CustomTextInput} from "../components/CustomTextInput";
+import {CustomTextInput} from '../components/CustomTextInput';
 import {Card} from '../../interfaces/card';
-import {Column} from "../../interfaces/column";
-import generalStyles from './styles'
+import {Column} from '../../interfaces/column';
+import generalStyles from './styles';
 
-export default ({route, navigation}: StackScreenProps<any> ) => {
-
+export default ({route, navigation}: StackScreenProps<any>) => {
   // @ts-ignore
   const column: Column = route.params.column;
 
@@ -22,17 +21,24 @@ export default ({route, navigation}: StackScreenProps<any> ) => {
       <CustomTextInput />
       {cards.map((card) => {
         return (
-            <View style={styles.cardItem} key={card.id}>
-                <View style={generalStyles.flexContainer} >
-                  <Image source={require('../../img/vertical-line.png')} style={generalStyles.vertLine}/>
-                  <Text
-                    style={generalStyles.mainText}
-                    onPress={() => navigation.navigate('CardItem', {card, colTitle: column.title})}
-                  >
-                    {card.title}
-                  </Text>
-                </View>
+          <View style={styles.cardItem} key={card.id}>
+            <View style={generalStyles.flexContainer}>
+              <Image
+                source={require('../../img/vertical-line.png')}
+                style={generalStyles.vertLine}
+              />
+              <Text
+                style={generalStyles.mainText}
+                onPress={() =>
+                  navigation.navigate('CardItem', {
+                    card,
+                    colTitle: column.title,
+                  })
+                }>
+                {card.title}
+              </Text>
             </View>
+          </View>
         );
       })}
     </ScrollView>

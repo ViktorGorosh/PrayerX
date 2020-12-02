@@ -1,18 +1,20 @@
 import React from 'react';
 import {ScrollView, Text, View} from 'react-native';
 import {useSelector} from 'react-redux';
-import {StackScreenProps} from "@react-navigation/stack";
-import {IconButton} from "../components/IconButton";
+import {StackScreenProps} from '@react-navigation/stack';
+import {IconButton} from '../components/IconButton';
 import {selectColumns} from '../../state/ducks/column';
 import {Column} from '../../interfaces/column';
-import generalStyles from './styles'
+import generalStyles from './styles';
 
 export default ({navigation}: StackScreenProps<any>) => {
-
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <IconButton onPress={() => navigation.navigate('Add column')} type={'add'} />
+        <IconButton
+          onPress={() => navigation.navigate('Add column')}
+          type={'add'}
+        />
       ),
     });
   }, [navigation]);
@@ -21,14 +23,13 @@ export default ({navigation}: StackScreenProps<any>) => {
 
   return (
     <View style={generalStyles.container}>
-      <ScrollView >
+      <ScrollView>
         {columns.map((column) => {
           return (
             <View style={styles.columnItem} key={column.id}>
               <Text
                 style={generalStyles.mainText}
-                onPress={() => navigation.navigate('ColumnItem', {column})}
-              >
+                onPress={() => navigation.navigate('ColumnItem', {column})}>
                 {column.title}
               </Text>
             </View>

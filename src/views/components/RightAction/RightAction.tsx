@@ -1,9 +1,9 @@
-import React from "react";
-import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import styles from "./styles";
+import React from 'react';
+import {Text, TouchableOpacity, View} from 'react-native';
+import styles from './styles';
 
 interface RightActionProps {
-  onPress: () => void
+  onPress: () => void;
 }
 
 export default ({onPress}: RightActionProps) => {
@@ -13,6 +13,5 @@ export default ({onPress}: RightActionProps) => {
         <Text style={styles.actionText}>Delete</Text>
       </View>
     </TouchableOpacity>
-  )
-}
-
+  );
+};

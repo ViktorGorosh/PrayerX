@@ -10,5 +10,5 @@ export interface ChangeTitleAction {
 
 export interface AddColumnAction {
   type: string;
-  payload: string;
+  payload: Column['title'];
 }

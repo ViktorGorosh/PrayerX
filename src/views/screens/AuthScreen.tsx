@@ -1,39 +1,56 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useLayoutEffect, useState} from 'react';
 import {StyleSheet, TextInput, View} from 'react-native';
 import {StackScreenProps} from '@react-navigation/stack';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
-import {login} from '../../state/ducks/user';
+import {signUp, selectUser} from '../../state/ducks/user';
 import {Button, mainButtonStyles} from '../components/TextButton';
+import {User} from '../../interfaces/user';
 
 export default ({navigation}: StackScreenProps<any>) => {
   const dispatch = useDispatch();
+  const user: User = useSelector(selectUser);
 
-  const [newName, setNewName] = useState('');
-  const onChangeText = useCallback((text) => setNewName(text), []);
-  const handlePress = useCallback(() => {
-    if (newName === '') {
+  useLayoutEffect(() => {
+    if (user.isAuthorized) {
+      navigation.navigate('ColumnList');
+    }
+  });
+
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const onChangeName = useCallback((text) => setName(text), []);
+  const onChangeEmail = useCallback((text) => setEmail(text), []);
+  const onChangePassword = useCallback((text) => setPassword(text), []);
+
+  const onSignUp = useCallback(() => {
+    if (name === '' || email === '' || password === '') {
       return;
     }
 
-    dispatch(login(newName));
-    navigation.navigate('ColumnList');
-  }, [dispatch, newName, navigation]);
+    dispatch(signUp(name, email, password));
+  }, [dispatch, email, name, password]);
 
   return (
     <View style={styles.wrap}>
       <TextInput
         style={styles.textInput}
         placeholder="Username"
-        onChangeText={onChangeText}
+        onChangeText={onChangeName}
       />
-      <TextInput style={styles.textInput} placeholder="Email" />
-      <TextInput style={styles.textInput} placeholder="Password" />
-      <Button
-        text={'Sign in'}
-        styles={mainButtonStyles}
-        onPress={handlePress}
+      <TextInput
+        style={styles.textInput}
+        placeholder="Email"
+        onChangeText={onChangeEmail}
       />
+      <TextInput
+        style={styles.textInput}
+        placeholder="Password"
+        onChangeText={onChangePassword}
+      />
+      <Button text={'Sign in'} styles={mainButtonStyles} onPress={onSignUp} />
     </View>
   );
 };

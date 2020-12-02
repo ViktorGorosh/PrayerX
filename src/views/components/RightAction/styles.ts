@@ -1,9 +1,9 @@
-import {StyleSheet} from "react-native";
+import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   rightAction: {
     backgroundColor: '#AC5253',
-    justifyContent: "center",
+    justifyContent: 'center',
     height: '100%',
   },
   actionText: {
@@ -11,5 +11,5 @@ export default StyleSheet.create({
     fontSize: 13,
     paddingHorizontal: 20,
     paddingVertical: 28,
-  }
-})
+  },
+});
