@@ -30,7 +30,7 @@ export default ({navigation}: StackScreenProps<any>) => {
       return;
     }
 
-    dispatch(signUp(name, email, password));
+    dispatch(signUp({name, email, password}));
   }, [dispatch, email, name, password]);
 
   return (

@@ -1,11 +1,11 @@
-export const SIGN_UP = 'user/signUp';
+export const SIGN_UP = 'user/register';
 
 export interface LoginAction {
   type: string;
   payload: string;
 }
 
-export interface SignUpAction {
+export interface RegisterAction {
   type: string;
   payload: {
     email: string;
