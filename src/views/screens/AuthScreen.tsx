@@ -7,6 +7,7 @@ import {signUp, signIn, selectUser} from '../../state/ducks/user';
 import {Button, mainButtonStyles} from '../components/TextButton';
 import {User} from '../../interfaces/user';
 import generalStyles from './styles';
+import {getColumns} from "../../state/ducks/column/actions";
 
 export default ({navigation}: StackScreenProps<any>) => {
   const dispatch = useDispatch();
@@ -38,7 +39,6 @@ export default ({navigation}: StackScreenProps<any>) => {
     if (email === '' || password === '') {
       return;
     }
-
     dispatch(signIn({email, password}));
   }, [dispatch, email, password]);
 

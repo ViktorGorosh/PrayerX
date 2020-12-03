@@ -20,6 +20,7 @@ export async function loginUserService(user: LoginAction['payload']) {
 
   try {
     const response = await axios.post(LOGIN_API_ENDPOINT, user);
+
     if (response.status === 201) {
       return response.data;
     }
