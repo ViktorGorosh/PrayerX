@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {ButtonStyles} from '../../../interfaces/button';
+import {ButtonStyles} from '@interfaces/button';
 
 export const mainButtonStyles: ButtonStyles = StyleSheet.create({
   button: {

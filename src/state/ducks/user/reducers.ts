@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {User} from '../../../interfaces/user';
+import {User} from '@interfaces/user';
 import {LoginSuccessAction} from './types';
 
 const initialState: User = {

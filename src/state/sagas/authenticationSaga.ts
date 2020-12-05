@@ -2,11 +2,11 @@ import {call, put} from 'redux-saga/effects';
 import {
   loginUserService,
   registerUserService,
-} from '../services/authenticationService';
-import {loginSuccess} from '../state/ducks/user';
-import {updateColumns} from '../state/ducks/column'
-import {getColumns} from "../state/ducks/column/actions";
-import {LoginAction, RegisterAction} from '../state/ducks/user/types';
+} from '@services/authenticationService';
+import {loginSuccess} from '@ducks/user';
+import {updateColumns} from '@ducks/column'
+import {getColumns} from "@ducks/column/actions";
+import {LoginAction, RegisterAction} from '@ducks/user/types';
 
 export function* registerSaga(action: RegisterAction) {
   const data = yield call(registerUserService, action.payload);

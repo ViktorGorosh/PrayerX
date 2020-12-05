@@ -9,12 +9,13 @@ import {
 } from 'react-native';
 import {StackScreenProps} from '@react-navigation/stack';
 import {useSelector} from 'react-redux';
-import {selectCardComments} from '../../state/ducks/comment';
-import {CustomTextInput} from '../components/CustomTextInput';
-import {CommentItem} from '../components/CommentItem';
-import {IconButton} from '../components/IconButton';
-import {Comment} from '../../interfaces/comment';
-import {Card} from '../../interfaces/card';
+
+import {selectCardComments} from '@ducks/comment';
+import {CustomTextInput} from '@components/CustomTextInput';
+import {CommentItem} from '@components/CommentItem';
+import {IconButton} from '@components/IconButton';
+import {Comment} from '@interfaces/comment';
+import {Card} from '@interfaces/card';
 import generalStyles from './styles';
 
 export default ({route}: StackScreenProps<any>) => {

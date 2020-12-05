@@ -2,10 +2,11 @@ import React, {useCallback, useState} from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import {useDispatch} from 'react-redux';
-import {updateComment, deleteComment} from '../../../state/ducks/comment';
-import {RightAction} from '../RightAction';
-import {Comment} from '../../../interfaces/comment';
-import generalStyles from '../../screens/styles';
+
+import {updateComment, deleteComment} from '@ducks/comment';
+import {RightAction} from '@components/RightAction';
+import {Comment} from '@interfaces/comment';
+import generalStyles from '@screens/styles';
 
 interface CommentItemProps {
   comment: Comment;

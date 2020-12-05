@@ -2,9 +2,10 @@ import React from 'react';
 import {ScrollView, Text, View} from 'react-native';
 import {useSelector} from 'react-redux';
 import {StackScreenProps} from '@react-navigation/stack';
-import {IconButton} from '../components/IconButton';
-import {selectColumns} from '../../state/ducks/column';
-import {Column} from '../../interfaces/column';
+
+import {IconButton} from '@components/IconButton';
+import {selectColumns} from '@ducks/column';
+import {Column} from '@interfaces/column';
 import generalStyles from './styles';
 
 export default ({navigation}: StackScreenProps<any>) => {

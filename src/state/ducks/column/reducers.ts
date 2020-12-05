@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {Column} from '../../../interfaces/column';
+import {Column} from '@interfaces/column';
 import {ChangeTitleAction, AddColumnAction, UpdateColumnsAction} from './types';
 
 const initialState: Array<Column> = [];

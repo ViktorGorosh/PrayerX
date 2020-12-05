@@ -1,6 +1,7 @@
 import React from 'react';
 import {TextInput, View} from 'react-native';
-import {IconButton} from '../IconButton';
+
+import {IconButton} from '@components/IconButton';
 import {styles} from './styles';
 
 export default () => {

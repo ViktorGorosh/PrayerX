@@ -1,4 +1,4 @@
-import {Card, CardChanges} from '../../../interfaces/card';
+import {Card, CardChanges} from '@interfaces/card';
 
 export interface AddCardAction {
   type: string;

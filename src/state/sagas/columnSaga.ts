@@ -1,6 +1,6 @@
 import {call, put} from "redux-saga/effects";
-import {getColumnsService} from "../services/columnService";
-import {updateColumns} from '../state/ducks/column'
+import {getColumnsService} from "@services/columnService";
+import {updateColumns} from '@ducks/column'
 
 export function* getColumnsSaga() {
   const data = yield call(getColumnsService);

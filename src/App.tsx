@@ -8,7 +8,7 @@ import {
   ColumnListScreen,
   ColumnItemScreen,
   AddColumnScreen,
-} from './views/screens';
+} from '@screens/index';
 
 // TODO: Fix RootStackParamList error in createStackNavigator
 // interface RootStackParamList {

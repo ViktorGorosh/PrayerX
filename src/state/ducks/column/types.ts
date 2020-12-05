@@ -1,4 +1,4 @@
-import {Column} from '../../../interfaces/column';
+import {Column} from '@interfaces/column';
 
 export const GET_COLUMNS = 'column/get'
 

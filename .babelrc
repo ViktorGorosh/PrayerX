@@ -1,0 +1,16 @@
+{
+  "plugins": [
+    ["module-resolver", {
+      "root": ["./src"],
+      "alias": {
+        "@img": "./img",
+        "@interfaces": "./interfaces",
+        "@services": "./services",
+        "@ducks": "./state/ducks",
+        "@sagas": "./state/sagas",
+        "@components": "./views/components",
+        "@screens": "./views/screens"
+      }
+    }]
+  ]
+}

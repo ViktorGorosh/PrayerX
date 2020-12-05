@@ -1,4 +1,4 @@
-import {Comment} from 'interfaces/comment';
+import {Comment} from '@interfaces/comment';
 
 export interface AddCommentAction {
   type: string;

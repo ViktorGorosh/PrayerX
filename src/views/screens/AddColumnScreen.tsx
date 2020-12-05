@@ -1,9 +1,10 @@
 import React, {useCallback, useState} from 'react';
 import {StyleSheet, TextInput, View} from 'react-native';
 import {useDispatch} from 'react-redux';
-import {Button, mainButtonStyles} from '../components/TextButton';
-import {addColumn} from '../../state/ducks/column';
 import {StackScreenProps} from '@react-navigation/stack';
+
+import {addColumn} from '@ducks/column';
+import {Button, mainButtonStyles} from '@components/TextButton';
 import generalStyles from './styles';
 
 export default ({navigation}: StackScreenProps<any>) => {

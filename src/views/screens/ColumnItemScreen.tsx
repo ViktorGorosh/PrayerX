@@ -2,10 +2,11 @@ import React from 'react';
 import {Text, View, ScrollView, Image, StyleSheet} from 'react-native';
 import {StackScreenProps} from '@react-navigation/stack';
 import {useSelector} from 'react-redux';
-import {selectColumnCards} from '../../state/ducks/card';
-import {CustomTextInput} from '../components/CustomTextInput';
-import {Card} from '../../interfaces/card';
-import {Column} from '../../interfaces/column';
+
+import {selectColumnCards} from '@ducks/card';
+import {CustomTextInput} from '@components/CustomTextInput';
+import {Card} from '@interfaces/card';
+import {Column} from '@interfaces/column';
 import generalStyles from './styles';
 
 export default ({route, navigation}: StackScreenProps<any>) => {
