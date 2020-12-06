@@ -3,8 +3,10 @@ import {ScrollView, Text, View} from 'react-native';
 import {useSelector} from 'react-redux';
 import {IconButton} from '../components/IconButton';
 import {selectColumns} from '../../state/ducks/column';
+import {selectErrors} from "../../state/ducks/errors";
 import {Column} from '../../interfaces/column';
 import {ColumnListScreenProps} from "../../interfaces/navigator";
+import {Errors} from "../../interfaces/errors";
 import generalStyles from './styles';
 
 export default ({navigation}: ColumnListScreenProps) => {
@@ -20,7 +22,8 @@ export default ({navigation}: ColumnListScreenProps) => {
   }, [navigation]);
 
   const columns: Array<Column> = useSelector(selectColumns);
-
+  const errors: Errors = useSelector(selectErrors);
+  console.log(errors)
   return (
     <View style={generalStyles.container}>
       <ScrollView>

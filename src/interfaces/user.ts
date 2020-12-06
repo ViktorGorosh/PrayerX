@@ -1,5 +1,6 @@
 export interface User {
   name: string;
+  id: number;
   isAuthorized: boolean;
   isLoading: boolean;
   isFailed: boolean;
@@ -7,7 +8,6 @@ export interface User {
 }
 
 export interface UserExtended extends User {
-  id: number;
   email: string;
   password: string;
 }
@@ -20,5 +20,4 @@ export interface LoginInfo {
 export interface RegisterInfo {
   name: User['name'];
   email: UserExtended['email'];
-  password: UserExtended['password'];
-}
+  password: UserExtended['password'];}

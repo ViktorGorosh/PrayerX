@@ -1,11 +1,12 @@
 import {call, put, takeLatest} from 'redux-saga/effects';
+// TODO: fix community AsyncStorage and use it instead
+import {AsyncStorage} from 'react-native';
 import {
   loginUserService,
   registerUserService,
 } from '../../services/authenticationService';
 import {loginSuccess, loginFailure, loginError, loadingOn} from '../ducks/user';
-import {updateColumns} from '../ducks/column';
-import {getColumns} from "../ducks/column/actions";
+import {getColumnsSuccess, getColumns} from '../ducks/column';
 import {LoginAction, RegisterAction, SIGN_IN, SIGN_UP} from '../ducks/user/types';
 
 function* register(action: RegisterAction) {
@@ -13,9 +14,10 @@ function* register(action: RegisterAction) {
   try {
     const data = yield call(registerUserService, action.payload);
 
-    if (data.columns) { // Server returns default columns, if registration was successful
-      yield put(updateColumns(data.columns))
-      yield put(loginSuccess(data.name));
+    if (data.token) { // Server returns token, if registration was successful
+      yield call(AsyncStorage.setItem, 'token', data.token);
+      yield put(getColumnsSuccess(data.columns));
+      yield put(loginSuccess({name: data.name, id: data.id}));
     } else {
       yield put(loginFailure())
     }
@@ -30,8 +32,10 @@ function* login(action: LoginAction) {
   try {
     const data = yield call(loginUserService, action.payload);
 
-    if (data.columns) {
-      yield put(loginSuccess(data.name));
+    if (data.token) { // Server returns token, if authentication was successful
+      yield call(AsyncStorage.setItem, 'token', data.token)
+      yield put(getColumns())
+      yield put(loginSuccess({name: data.name, id: data.id}));
     } else {
       yield put(loginFailure())
     }

@@ -4,6 +4,7 @@ import {LoginSuccessAction} from './types';
 
 const initialState: User = {
   name: '',
+  id: 0,
   isAuthorized: false,
   isLoading: false,
   isFailed: false,
@@ -24,19 +25,24 @@ export const user = createSlice({
     }),
     loginSuccess: (state, action: LoginSuccessAction) => ({
       ...state,
-      name: action.payload,
+      name: action.payload.name,
+      id: action.payload.id,
       isAuthorized: true,
       isLoading: false,
+      isFailed: false,
+      error: false,
     }),
     loginFailure: state => ({
       ...state,
       isLoading: false,
       isFailed: true,
+      error: false
     }),
     loginError: state => ({
       ...state,
       isLoading: false,
-      error: true
+      isFailed: false,
+      error: true,
     })
   },
 });

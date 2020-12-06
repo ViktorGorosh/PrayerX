@@ -8,7 +8,7 @@ export const column = createSlice({
   name: 'column',
   initialState,
   reducers: {
-    updateColumns: ((state, action: UpdateColumnsAction) => {
+    getColumnsSuccess: ((state, action: UpdateColumnsAction) => {
       return action.payload;
     }),
     changeTitle: (state, action: ChangeTitleAction) => {
@@ -26,6 +26,7 @@ export const column = createSlice({
         {
           id: Math.random(),
           title: action.payload,
+          userId: Math.random()
         },
       ];
     },

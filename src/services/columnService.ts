@@ -1,19 +1,14 @@
 import axios from 'axios';
+import {AsyncStorage} from "react-native";
+
+const GET_COLUMN_API_ENDPOINT = 'http://trello-purrweb.herokuapp.com/columns';
 
 export async function getColumnsService() {
-  const GET_COLUMN_API_ENDPOINT = 'http://trello-purrweb.herokuapp.com/columns';
-
-  try {
-    const response = await axios.get(GET_COLUMN_API_ENDPOINT, {
-      headers: {
-        Authorization: 'bearer',
-      },
-    });
-    console.log(response.status);
-    if (response.status === 200) {
-      return response.data;
+  const token = await AsyncStorage.getItem('token')
+  const response = await axios.get(GET_COLUMN_API_ENDPOINT, {
+    headers: {
+      "Authorization": `bearer ${token}`
     }
-  } catch (error) {
-    console.error(error);
-  }
+  })
+  return response.data
 }

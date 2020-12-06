@@ -1,13 +1,23 @@
 import {call, put, takeEvery} from "redux-saga/effects";
 import {getColumnsService} from "../../services/columnService";
-import {updateColumns} from '../ducks/column'
+import {getColumnsSuccess} from '../ducks/column'
 import {GET_COLUMNS} from "../ducks/column/types";
+import { getColumnsFailure, getColumnsError } from "../ducks/errors";
 
-function* getColumnsSaga() {
-  const data = yield call(getColumnsService);
-  yield put(updateColumns(data.columns));
+function* getColumns() {
+  try {
+    const data = yield call(getColumnsService);
+
+    if (Array.isArray(data)) { // Server must return an array of columns
+      yield put(getColumnsSuccess(data));
+    } else {
+      yield put(getColumnsFailure())
+    }
+  } catch (e) {
+    yield put(getColumnsError())
+  }
 }
 
 export function* watchColumnsGet() {
-  yield takeEvery(GET_COLUMNS, getColumnsSaga)
+  yield takeEvery(GET_COLUMNS, getColumns)
 }

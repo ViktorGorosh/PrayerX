@@ -3,14 +3,15 @@ import {StyleSheet, Text, TextInput, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {signUp, signIn, selectUser} from '../../state/ducks/user';
+import {selectErrors} from "../../state/ducks/errors";
 import {Button, mainButtonStyles} from '../components/TextButton';
-import {User} from '../../interfaces/user';
 import {AuthScreenProps} from "../../interfaces/navigator";
 import generalStyles from './styles';
 
 export default ({navigation}: AuthScreenProps) => {
   const dispatch = useDispatch();
-  const user: User = useSelector(selectUser);
+  const user = useSelector(selectUser);
+  const errors = useSelector(selectErrors);
 
   useLayoutEffect(() => {
     if (user.isAuthorized) {
@@ -65,10 +66,13 @@ export default ({navigation}: AuthScreenProps) => {
       {user.isLoading ? <Text style={generalStyles.mainText}>Загрузка...</Text> : null}
       {user.isFailed ? <Text style={generalStyles.mainText}>Неверный email или пароль</Text> : null}
       {user.error ? <Text style={generalStyles.mainText}>Ошибка загрузки данных</Text> : null}
+      {errors.getColumnsFailure || errors.getColumnsError
+        ? <Text style={generalStyles.mainText}>Не получилось загрузить колонки</Text>
+        : null
+      }
 
       <Button text={'Sign in'} styles={mainButtonStyles} onPress={onSignIn} />
       <Button text={'Sign up'} styles={mainButtonStyles} onPress={onSignUp} />
-      {console.log(user)}
     </View>
   );
 };

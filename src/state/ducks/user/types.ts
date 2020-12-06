@@ -15,5 +15,8 @@ export interface LoginAction {
 
 export interface LoginSuccessAction {
   type: string;
-  payload: User['name'];
+  payload: {
+    name: User['name']
+    id: User['id']
+  };
 }
