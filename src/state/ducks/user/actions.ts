@@ -1,17 +1,18 @@
 import {createAction} from '@reduxjs/toolkit';
 import {user} from './reducers';
-import {RegisterAction, SIGN_UP, SIGN_IN, LoginAction} from './types';
+import {SIGN_UP, SIGN_IN} from './types';
+import {LoginInfo, RegisterInfo} from "../../../interfaces/user";
 
-export const {loginSuccess} = user.actions;
+export const {loginSuccess, loginFailure, loginError, loadingOff, loadingOn} = user.actions;
 
 export const signUp = createAction(SIGN_UP, function (
-  payload: RegisterAction['payload'],
+  payload: RegisterInfo,
 ) {
   return {payload};
 });
 
 export const signIn = createAction(SIGN_IN, function (
-  payload: LoginAction['payload'],
+  payload: LoginInfo,
 ) {
   return {payload};
 });

@@ -1,23 +1,16 @@
-import {User} from '../../../interfaces/user';
+import {User, LoginInfo, RegisterInfo} from '../../../interfaces/user';
 
 export const SIGN_UP = 'user/register';
 export const SIGN_IN = 'user/login';
 
 export interface RegisterAction {
   type: string;
-  payload: {
-    email: string;
-    name: User['name'];
-    password: string;
-  };
+  payload: RegisterInfo;
 }
 
 export interface LoginAction {
   type: string;
-  payload: {
-    email: string;
-    password: string;
-  };
+  payload: LoginInfo;
 }
 
 export interface LoginSuccessAction {

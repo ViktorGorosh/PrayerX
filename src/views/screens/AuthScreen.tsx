@@ -1,5 +1,5 @@
 import React, {useCallback, useLayoutEffect, useState} from 'react';
-import {StyleSheet, TextInput, View} from 'react-native';
+import {StyleSheet, Text, TextInput, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {signUp, signIn, selectUser} from '../../state/ducks/user';
@@ -62,8 +62,13 @@ export default ({navigation}: AuthScreenProps) => {
         placeholder="Password"
         onChangeText={onChangePassword}
       />
+      {user.isLoading ? <Text style={generalStyles.mainText}>Загрузка...</Text> : null}
+      {user.isFailed ? <Text style={generalStyles.mainText}>Неверный email или пароль</Text> : null}
+      {user.error ? <Text style={generalStyles.mainText}>Ошибка загрузки данных</Text> : null}
+
       <Button text={'Sign in'} styles={mainButtonStyles} onPress={onSignIn} />
       <Button text={'Sign up'} styles={mainButtonStyles} onPress={onSignUp} />
+      {console.log(user)}
     </View>
   );
 };
