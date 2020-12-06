@@ -14,7 +14,7 @@ export default ({navigation}: AuthScreenProps) => {
 
   useLayoutEffect(() => {
     if (user.isAuthorized) {
-      navigation.navigate('ColumnList');
+      navigation.replace('ColumnList');
     }
   });
 
