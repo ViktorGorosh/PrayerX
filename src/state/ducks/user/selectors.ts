@@ -1,1 +1,3 @@
-export const selectUser = (state: any) => state.user;
+import {Store} from "../../../interfaces/store";
+
+export const selectUser = (state: Store) => state.user;

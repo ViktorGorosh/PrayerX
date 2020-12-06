@@ -8,21 +8,32 @@ import {
   View,
 } from 'react-native';
 import {useSelector} from 'react-redux';
+import {selectCardById} from "../../state/ducks/card";
 import {selectCardComments} from '../../state/ducks/comment';
 import {CustomTextInput} from '../components/CustomTextInput';
 import {CommentItem} from '../components/CommentItem';
 import {IconButton} from '../components/IconButton';
+import {Store} from "../../interfaces/store";
+import {Card} from "../../interfaces/card";
 import {Comment} from '../../interfaces/comment';
 import {CardItemScreenProps} from '../../interfaces/navigator'
 import generalStyles from './styles';
 
-export default ({route}: CardItemScreenProps) => {
-  const {colTitle, card} = route.params;
+export default ({route, navigation}: CardItemScreenProps) => {
+  const {colTitle, cardId} = route.params;
 
   // const dispatch = useDispatch()
 
-  const comments: Array<Comment> = useSelector((state) =>
-    selectCardComments(state, card.id),
+  const card: Card = useSelector((state: Store) => selectCardById(state, cardId))!;
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      title: card.title
+    });
+  }, [navigation]);
+
+  const comments: Array<Comment> = useSelector((state: Store) =>
+    selectCardComments(state, cardId),
   );
   // const [isActive, setActive] = useState(false)
   //

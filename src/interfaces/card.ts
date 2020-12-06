@@ -1,5 +1,7 @@
+import {Column} from "./column";
+
 export interface Card {
-  colId: string;
+  colId: Column['id'];
   id: string;
   title: string;
   description: string | null;

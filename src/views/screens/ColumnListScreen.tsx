@@ -29,7 +29,7 @@ export default ({navigation}: ColumnListScreenProps) => {
             <View style={styles.columnItem} key={column.id}>
               <Text
                 style={generalStyles.mainText}
-                onPress={() => navigation.navigate('ColumnItem', {column})}>
+                onPress={() => navigation.navigate('ColumnItem', {colId: column.id})}>
                 {column.title}
               </Text>
             </View>

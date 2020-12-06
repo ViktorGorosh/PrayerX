@@ -1,20 +1,29 @@
 import React from 'react';
 import {Text, View, ScrollView, Image, StyleSheet} from 'react-native';
 import {useSelector} from 'react-redux';
+import {selectColumnById} from '../../state/ducks/column';
 import {selectColumnCards} from '../../state/ducks/card';
 import {CustomTextInput} from '../components/CustomTextInput';
 import {Card} from '../../interfaces/card';
 import {Column} from '../../interfaces/column';
 import {ColumnItemScreenProps} from "../../interfaces/navigator";
+import {Store} from "../../interfaces/store";
 import generalStyles from './styles';
+import {IconButton} from "../components/IconButton";
 
 export default ({route, navigation}: ColumnItemScreenProps) => {
-  // @ts-ignore
-  const column: Column = route.params.column;
 
-  const cards: Array<Card> = useSelector((state) =>
+  const column: Column = useSelector((state: Store) => selectColumnById(state, route.params.colId))!;
+
+  const cards: Array<Card> = useSelector((state: Store) =>
     selectColumnCards(state, column.id),
   );
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      title: column.title
+    });
+  }, [navigation]);
 
   return (
     <ScrollView style={generalStyles.container}>
@@ -31,7 +40,7 @@ export default ({route, navigation}: ColumnItemScreenProps) => {
                 style={generalStyles.mainText}
                 onPress={() =>
                   navigation.navigate('CardItem', {
-                    card,
+                    cardId: card.id,
                     colTitle: column.title,
                   })
                 }>

@@ -7,11 +7,11 @@ export type RootStackParamList = {
   ColumnList: undefined;
   AddColumn: undefined;
   ColumnItem: {
-    column: Column;
+    colId: Column['id'];
   };
   CardItem: {
-    colTitle: string,
-    card: Card
+    colTitle: Column["title"],
+    cardId: Card['id']
   };
 }
 

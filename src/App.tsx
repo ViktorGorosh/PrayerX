@@ -25,26 +25,25 @@ export default () => {
           },
         }}>
         <Stack.Screen name={'Auth'} component={AuthScreen} />
-        <Stack.Screen name={'ColumnList'} component={ColumnListScreen} />
+        <Stack.Screen
+          name={'ColumnList'}
+          component={ColumnListScreen}
+          options={{title: 'My Desk'}}/>
         <Stack.Screen
           name={'ColumnItem'}
           component={ColumnItemScreen}
           initialParams={{}}
-          options={({route}) => ({
-            title: route.params.column.title,
-          })}
         />
         <Stack.Screen
           name={'CardItem'}
           component={CardItemScreen}
-          options={({route}) => ({
-            title: route.params.card.title,
+          options={{
             headerStyle: {
               backgroundColor: '#BFB393',
             },
             headerTintColor: 'white',
             headerTitleAlign: 'left',
-          })}
+          }}
         />
         <Stack.Screen name={'AddColumn'} component={AddColumnScreen} />
       </Stack.Navigator>
