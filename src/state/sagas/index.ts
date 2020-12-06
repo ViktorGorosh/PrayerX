@@ -1,5 +1,6 @@
 import {all} from 'redux-saga/effects';
-import {watchColumnsGet, watchUserAuthentication} from './watchers';
+import {watchUserAuthentication} from './authenticationSaga';
+import {watchColumnsGet} from './columnSaga';
 
 export default function* rootSaga() {
   yield all([watchUserAuthentication(), watchColumnsGet()]);

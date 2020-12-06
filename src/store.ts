@@ -1,6 +1,6 @@
 import {configureStore, getDefaultMiddleware} from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
-import rootSaga from './sagas';
+import rootSaga from './state/sagas';
 import userReducer from './state/ducks/user';
 import columnsReducer from './state/ducks/column';
 import cardsReducer from './state/ducks/card';
