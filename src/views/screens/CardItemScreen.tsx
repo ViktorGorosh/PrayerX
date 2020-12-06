@@ -7,21 +7,17 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import {StackScreenProps} from '@react-navigation/stack';
 import {useSelector} from 'react-redux';
 import {selectCardComments} from '../../state/ducks/comment';
 import {CustomTextInput} from '../components/CustomTextInput';
 import {CommentItem} from '../components/CommentItem';
 import {IconButton} from '../components/IconButton';
 import {Comment} from '../../interfaces/comment';
-import {Card} from '../../interfaces/card';
+import {CardItemScreenProps} from '../../interfaces/navigator'
 import generalStyles from './styles';
 
-export default ({route}: StackScreenProps<any>) => {
-  // @ts-ignore
-  const card: Card = route.params.card;
-  // @ts-ignore
-  const {colTitle} = route.params;
+export default ({route}: CardItemScreenProps) => {
+  const {colTitle, card} = route.params;
 
   // const dispatch = useDispatch()
 

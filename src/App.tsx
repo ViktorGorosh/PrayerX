@@ -10,17 +10,9 @@ import {
   AddColumnScreen,
 } from './views/screens';
 
-// TODO: Fix RootStackParamList error in createStackNavigator
-// interface RootStackParamList {
-//   Auth: undefined;
-//   ColumnList: undefined;
-//   ColumnItem: {
-//     column: Column;
-//   };
-//   CardItem: undefined;
-// }
+import {RootStackParamList} from './interfaces/navigator'
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<RootStackParamList>();
 
 export default () => {
   return (
@@ -39,7 +31,6 @@ export default () => {
           component={ColumnItemScreen}
           initialParams={{}}
           options={({route}) => ({
-            // @ts-ignore
             title: route.params.column.title,
           })}
         />
@@ -47,7 +38,6 @@ export default () => {
           name={'CardItem'}
           component={CardItemScreen}
           options={({route}) => ({
-            // @ts-ignore
             title: route.params.card.title,
             headerStyle: {
               backgroundColor: '#BFB393',
@@ -56,7 +46,7 @@ export default () => {
             headerTitleAlign: 'left',
           })}
         />
-        <Stack.Screen name={'Add column'} component={AddColumnScreen} />
+        <Stack.Screen name={'AddColumn'} component={AddColumnScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -19,7 +19,7 @@ export function* registerSaga(action: RegisterAction) {
 export function* loginSaga(action: LoginAction) {
   const data = yield call(loginUserService, action.payload);
   if (data.name && data.name !== 'EntityNotFound') {
-    yield put(getColumns())
+    // yield put(getColumns())
     yield put(loginSuccess(data.name));
   }
 }

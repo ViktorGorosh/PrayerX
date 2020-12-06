@@ -3,10 +3,10 @@ import {StyleSheet, TextInput, View} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {Button, mainButtonStyles} from '../components/TextButton';
 import {addColumn} from '../../state/ducks/column';
-import {StackScreenProps} from '@react-navigation/stack';
 import generalStyles from './styles';
+import {AddColumnScreenProps} from "../../interfaces/navigator";
 
-export default ({navigation}: StackScreenProps<any>) => {
+export default ({navigation}: AddColumnScreenProps) => {
   const dispatch = useDispatch();
 
   const [newColTitle, setNewColTitle] = useState('');

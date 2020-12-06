@@ -1,18 +1,18 @@
 import React from 'react';
 import {ScrollView, Text, View} from 'react-native';
 import {useSelector} from 'react-redux';
-import {StackScreenProps} from '@react-navigation/stack';
 import {IconButton} from '../components/IconButton';
 import {selectColumns} from '../../state/ducks/column';
 import {Column} from '../../interfaces/column';
+import {ColumnListScreenProps} from "../../interfaces/navigator";
 import generalStyles from './styles';
 
-export default ({navigation}: StackScreenProps<any>) => {
+export default ({navigation}: ColumnListScreenProps) => {
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         <IconButton
-          onPress={() => navigation.navigate('Add column')}
+          onPress={() => navigation.navigate('AddColumn')}
           type={'add'}
         />
       ),

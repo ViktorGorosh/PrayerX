@@ -1,15 +1,14 @@
 import React, {useCallback, useLayoutEffect, useState} from 'react';
 import {StyleSheet, TextInput, View} from 'react-native';
-import {StackScreenProps} from '@react-navigation/stack';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {signUp, signIn, selectUser} from '../../state/ducks/user';
 import {Button, mainButtonStyles} from '../components/TextButton';
 import {User} from '../../interfaces/user';
+import {AuthScreenProps} from "../../interfaces/navigator";
 import generalStyles from './styles';
-import {getColumns} from "../../state/ducks/column/actions";
 
-export default ({navigation}: StackScreenProps<any>) => {
+export default ({navigation}: AuthScreenProps) => {
   const dispatch = useDispatch();
   const user: User = useSelector(selectUser);
 
