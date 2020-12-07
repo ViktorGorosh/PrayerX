@@ -1,6 +1,7 @@
-import {Column} from '../../../interfaces/column';
+import {Column, ColumnForPost} from '../../../interfaces/column';
 
 export const GET_COLUMNS = 'column/get'
+export const POST_COLUMN = 'column/post'
 
 export interface UpdateColumnsAction {
   type: string,
@@ -18,4 +19,9 @@ export interface ChangeTitleAction {
 export interface AddColumnAction {
   type: string;
   payload: Column['title'];
+}
+
+export interface PostColumnAction {
+  type: string,
+  payload: ColumnForPost,
 }

@@ -1,47 +1,56 @@
 import {call, put, takeLatest} from 'redux-saga/effects';
 // TODO: fix community AsyncStorage and use it instead
 import {AsyncStorage} from 'react-native';
+import {PayloadAction} from "@reduxjs/toolkit";
 import {
   loginUserService,
   registerUserService,
 } from '../../services/authenticationService';
-import {loginSuccess, loginFailure, loginError, loadingOn} from '../ducks/user';
+import {loginSuccess} from '../ducks/user';
 import {getColumnsSuccess, getColumns} from '../ducks/column';
-import {LoginAction, RegisterAction, SIGN_IN, SIGN_UP} from '../ducks/user/types';
+import {loadingOn, setError, loadingOff} from '../ducks/meta';
+import {SIGN_IN, SIGN_UP} from '../ducks/user/types';
+import {LoginPayload, LoginResponseData, RegisterPayload, RegisterResponseData} from "../../interfaces/user";
 
-function* register(action: RegisterAction) {
+function* register(action: PayloadAction<RegisterPayload>) {
   yield put(loadingOn())
   try {
-    const data = yield call(registerUserService, action.payload);
+    const data: RegisterResponseData = yield call(registerUserService, action.payload);
 
     if (data.token) { // Server returns token, if registration was successful
       yield call(AsyncStorage.setItem, 'token', data.token);
       yield put(getColumnsSuccess(data.columns));
       yield put(loginSuccess({name: data.name, id: data.id}));
+      yield put(loadingOff())
     } else {
-      yield put(loginFailure())
+      yield put(setError(data.message || 'Error'))
+      yield put(loadingOff())
     }
 
   } catch (e) {
-    yield put(loginError())
+    yield put(setError(e.message || 'Network error'))
+    yield put(loadingOff())
   }
 }
 
-function* login(action: LoginAction) {
+function* login(action: PayloadAction<LoginPayload>) {
   yield put(loadingOn())
   try {
-    const data = yield call(loginUserService, action.payload);
+    const data: LoginResponseData = yield call(loginUserService, action.payload);
 
     if (data.token) { // Server returns token, if authentication was successful
       yield call(AsyncStorage.setItem, 'token', data.token)
       yield put(getColumns())
       yield put(loginSuccess({name: data.name, id: data.id}));
+      yield put(loadingOff())
     } else {
-      yield put(loginFailure())
+      yield put(setError(data.message || 'Wrong username or password'))
+      yield put(loadingOff())
     }
 
   } catch (e) {
-    yield put(loginError())
+    yield put(setError(e.message ||'Network error'))
+    yield put(loadingOff())
   }
 }
 

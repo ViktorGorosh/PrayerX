@@ -5,7 +5,7 @@ import userReducer from './state/ducks/user';
 import columnsReducer from './state/ducks/column';
 import cardsReducer from './state/ducks/card';
 import commentsReducer from './state/ducks/comment';
-import errorsReducer from './state/ducks/meta'
+import metaReducer from './state/ducks/meta'
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -15,7 +15,7 @@ export default configureStore({
     columns: columnsReducer,
     cards: cardsReducer,
     comments: commentsReducer,
-    errors: errorsReducer
+    meta: metaReducer
   },
   middleware: getDefaultMiddleware().concat(sagaMiddleware),
 });

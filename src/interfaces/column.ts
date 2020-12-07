@@ -5,3 +5,8 @@ export interface Column {
   title: string;
   userId: User['id']
 }
+
+export interface ColumnForPost {
+  title: Column['title'],
+  description: string,
+}
