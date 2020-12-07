@@ -1,13 +1,16 @@
 import React, {useCallback, useState} from 'react';
-import {StyleSheet, TextInput, View} from 'react-native';
-import {useDispatch} from 'react-redux';
+import {StyleSheet, Text, TextInput, View} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 import {Button, mainButtonStyles} from '../components/TextButton';
-import {addColumn} from '../../state/ducks/column';
+import {postColumn} from '../../state/ducks/column';
+import {selectError, selectLoading} from "../../state/ducks/meta";
 import generalStyles from './styles';
 import {AddColumnScreenProps} from "../../interfaces/navigator";
 
 export default ({navigation}: AddColumnScreenProps) => {
   const dispatch = useDispatch();
+  const error = useSelector(selectError);
+  const isLoading = useSelector(selectLoading);
 
   const [newColTitle, setNewColTitle] = useState('');
 
@@ -18,7 +21,7 @@ export default ({navigation}: AddColumnScreenProps) => {
     }
 
     setNewColTitle('');
-    dispatch(addColumn(newColTitle));
+    dispatch(postColumn({title: newColTitle, description: ''}));
     navigation.goBack();
   }, [dispatch, navigation, newColTitle]);
 
@@ -32,6 +35,10 @@ export default ({navigation}: AddColumnScreenProps) => {
           onChangeText={onChangeNewColTitle}
         />
       </View>
+
+      {isLoading ? <Text style={generalStyles.mainText}>Загрузка...</Text> : null}
+      {error ? <Text style={generalStyles.mainText}>{error}</Text> : null}
+
       <Button styles={mainButtonStyles} text={'Add'} onPress={onColumnAdd} />
     </View>
   );

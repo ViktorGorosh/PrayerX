@@ -40,7 +40,6 @@ function* login(action: PayloadAction<LoginPayload>) {
 
     if (data.token) { // Server returns token, if authentication was successful
       yield call(AsyncStorage.setItem, 'token', data.token)
-      yield put(getColumns())
       yield put(loginSuccess({name: data.name, id: data.id}));
       yield put(loadingOff())
     } else {

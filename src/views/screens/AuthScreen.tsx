@@ -3,11 +3,10 @@ import {StyleSheet, Text, TextInput, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {signUp, signIn, selectUser} from '../../state/ducks/user';
+import {selectError, selectLoading} from "../../state/ducks/meta";
 import {Button, mainButtonStyles} from '../components/TextButton';
 import {AuthScreenProps} from "../../interfaces/navigator";
 import generalStyles from './styles';
-import {selectError} from "../../state/ducks/meta";
-import {selectLoading} from "../../state/ducks/meta/selectors";
 
 export default ({navigation}: AuthScreenProps) => {
   const dispatch = useDispatch();

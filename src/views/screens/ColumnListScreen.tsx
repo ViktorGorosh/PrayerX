@@ -1,13 +1,18 @@
 import React from 'react';
 import {ScrollView, Text, View} from 'react-native';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {IconButton} from '../components/IconButton';
-import {selectColumns} from '../../state/ducks/column';
-import {selectError} from "../../state/ducks/meta";
+import {getColumns, selectColumns} from '../../state/ducks/column';
+import {selectError, selectLoading} from "../../state/ducks/meta";
 import {ColumnListScreenProps} from "../../interfaces/navigator";
 import generalStyles from './styles';
 
 export default ({navigation}: ColumnListScreenProps) => {
+
+  const dispatch = useDispatch()
+  const error = useSelector(selectError);
+  const isLoading = useSelector(selectLoading);
+
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -17,11 +22,11 @@ export default ({navigation}: ColumnListScreenProps) => {
         />
       ),
     });
+    dispatch(getColumns())
   }, [navigation]);
 
   const columns = useSelector(selectColumns);
-  const error = useSelector(selectError);
-  console.log(error)
+
   return (
     <View style={generalStyles.container}>
       <ScrollView>
@@ -36,6 +41,10 @@ export default ({navigation}: ColumnListScreenProps) => {
             </View>
           );
         })}
+
+        {isLoading ? <Text style={generalStyles.mainText}>Загрузка...</Text> : null}
+        {error ? <Text style={generalStyles.mainText}>{error}</Text> : null}
+
       </ScrollView>
     </View>
   );

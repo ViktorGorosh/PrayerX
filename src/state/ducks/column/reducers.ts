@@ -20,14 +20,10 @@ export const column = createSlice({
         return column;
       });
     },
-    addColumn: (state, action: AddColumnAction) => {
+    postColumnSuccess: (state, action: AddColumnAction) => {
       return [
         ...state,
-        {
-          id: Math.random(),
-          title: action.payload,
-          userId: Math.random()
-        },
+        action.payload
       ];
     },
   },

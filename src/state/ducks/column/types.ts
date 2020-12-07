@@ -18,7 +18,7 @@ export interface ChangeTitleAction {
 
 export interface AddColumnAction {
   type: string;
-  payload: Column['title'];
+  payload: Column;
 }
 
 export interface PostColumnAction {

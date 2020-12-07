@@ -3,10 +3,21 @@ import {User} from "./user";
 export interface Column {
   id: number;
   title: string;
-  userId: User['id']
+  userId: User['id'];
+}
+
+export interface ColumnWithDesc extends Column {
+  description: string
 }
 
 export interface ColumnForPost {
   title: Column['title'],
-  description: string,
+  description: ColumnWithDesc['description'],
+}
+
+export interface PostColumnResponseData {
+  description: ColumnWithDesc['description'];
+  id: Column['id'];
+  title: Column['title'];
+  user: User['id'];
 }
