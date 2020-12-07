@@ -5,7 +5,7 @@ import userReducer from './state/ducks/user';
 import columnsReducer from './state/ducks/column';
 import cardsReducer from './state/ducks/card';
 import commentsReducer from './state/ducks/comment';
-import errorsReducer from './state/ducks/errors'
+import errorsReducer from './state/ducks/meta'
 
 const sagaMiddleware = createSagaMiddleware();
 
