@@ -23,12 +23,12 @@ function* register(action: PayloadAction<RegisterPayload>) {
       yield put(loginSuccess({name: data.name, id: data.id}));
       yield put(loadingOff())
     } else {
-      yield put(setError(data.message || 'Error'))
+      yield put(setError('Error'))
       yield put(loadingOff())
     }
 
   } catch (e) {
-    yield put(setError(e.message || 'Network error'))
+    yield put(setError('Network error'))
     yield put(loadingOff())
   }
 }

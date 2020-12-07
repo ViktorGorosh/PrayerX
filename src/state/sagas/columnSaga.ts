@@ -1,21 +1,26 @@
 import {call, put, takeEvery} from "redux-saga/effects";
-import {getColumnsService, postColumnService} from "../../services/columnService";
+import {getColumnsService} from "../../services/columnService";
 import {getColumnsSuccess} from '../ducks/column'
+import { setError, loadingOff, loadingOn } from "../ducks/meta";
 import {GET_COLUMNS} from "../ducks/column/types";
-import { getColumnsFailure, getColumnsError } from "../ducks/meta";
-import {ColumnForPost} from "../../interfaces/column";
+import {Column} from "../../interfaces/column";
 
 function* getColumns() {
+  yield put(loadingOn())
   try {
-    const data = yield call(getColumnsService);
+    const data: Column[] = yield call(getColumnsService);
 
     if (Array.isArray(data)) { // Server must return an array of columns
       yield put(getColumnsSuccess(data));
+      yield put(loadingOff())
     } else {
-      yield put(getColumnsFailure())
+      yield put(setError("Can't download the columns"))
+      yield put(loadingOff())
     }
+
   } catch (e) {
-    yield put(getColumnsError())
+    yield put(setError('Network error'))
+    yield put(loadingOff())
   }
 }
 

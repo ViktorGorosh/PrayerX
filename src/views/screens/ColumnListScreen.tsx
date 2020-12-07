@@ -4,9 +4,7 @@ import {useSelector} from 'react-redux';
 import {IconButton} from '../components/IconButton';
 import {selectColumns} from '../../state/ducks/column';
 import {selectError} from "../../state/ducks/meta";
-import {Column} from '../../interfaces/column';
 import {ColumnListScreenProps} from "../../interfaces/navigator";
-import {Errors} from "../../interfaces/meta";
 import generalStyles from './styles';
 
 export default ({navigation}: ColumnListScreenProps) => {
@@ -21,9 +19,9 @@ export default ({navigation}: ColumnListScreenProps) => {
     });
   }, [navigation]);
 
-  const columns: Array<Column> = useSelector(selectColumns);
-  const errors: Errors = useSelector(selectError);
-  console.log(errors)
+  const columns = useSelector(selectColumns);
+  const error = useSelector(selectError);
+  console.log(error)
   return (
     <View style={generalStyles.container}>
       <ScrollView>

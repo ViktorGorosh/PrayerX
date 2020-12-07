@@ -6,10 +6,14 @@ import {signUp, signIn, selectUser} from '../../state/ducks/user';
 import {Button, mainButtonStyles} from '../components/TextButton';
 import {AuthScreenProps} from "../../interfaces/navigator";
 import generalStyles from './styles';
+import {selectError} from "../../state/ducks/meta";
+import {selectLoading} from "../../state/ducks/meta/selectors";
 
 export default ({navigation}: AuthScreenProps) => {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
+  const error = useSelector(selectError);
+  const isLoading = useSelector(selectLoading);
 
   useLayoutEffect(() => {
     if (user.isAuthorized) {
@@ -61,9 +65,8 @@ export default ({navigation}: AuthScreenProps) => {
         placeholder="Password"
         onChangeText={onChangePassword}
       />
-      {user.isLoading ? <Text style={generalStyles.mainText}>Загрузка...</Text> : null}
-      {user.isFailed ? <Text style={generalStyles.mainText}>Неверный email или пароль</Text> : null}
-      {user.error ? <Text style={generalStyles.mainText}>Ошибка загрузки данных</Text> : null}
+      {isLoading ? <Text style={generalStyles.mainText}>Загрузка...</Text> : null}
+      {error ? <Text style={generalStyles.mainText}>{error}</Text> : null}
 
       <Button text={'Sign in'} styles={mainButtonStyles} onPress={onSignIn} />
       <Button text={'Sign up'} styles={mainButtonStyles} onPress={onSignUp} />
