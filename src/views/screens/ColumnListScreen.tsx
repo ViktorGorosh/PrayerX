@@ -1,5 +1,5 @@
-import React from 'react';
-import {ScrollView, Text, View} from 'react-native';
+import React, {useState} from 'react';
+import {ScrollView, Text, TextInput, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {IconButton} from '../components/IconButton';
 import {getColumns, selectColumns} from '../../state/ducks/column';
@@ -10,8 +10,6 @@ import generalStyles from './styles';
 export default ({navigation}: ColumnListScreenProps) => {
 
   const dispatch = useDispatch()
-  const error = useSelector(selectError);
-  const isLoading = useSelector(selectLoading);
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -26,6 +24,11 @@ export default ({navigation}: ColumnListScreenProps) => {
   }, [navigation]);
 
   const columns = useSelector(selectColumns);
+  const error = useSelector(selectError);
+  const isLoading = useSelector(selectLoading);
+
+  const [editingColumn, setEditingColumn] = useState<undefined | number>(undefined)
+  const [colTitle, setColTitle] = useState('')
 
   return (
     <View style={generalStyles.container}>
@@ -33,11 +36,31 @@ export default ({navigation}: ColumnListScreenProps) => {
         {columns.map((column) => {
           return (
             <View style={styles.columnItem} key={column.id}>
-              <Text
-                style={generalStyles.mainText}
-                onPress={() => navigation.navigate('ColumnItem', {colId: column.id})}>
-                {column.title}
-              </Text>
+              {column.id === editingColumn ?
+                <TextInput
+                  style={[generalStyles.mainText, styles.textInput]}
+                  defaultValue={column.title}
+                  autoFocus={true}
+
+                  onChangeText={text => setColTitle(text)}
+                  onBlur={
+                    () => {
+                      if (colTitle === '') return;
+                    }
+                  }
+                />
+
+                :
+
+                <Text
+                  style={generalStyles.mainText}
+                  onPress={() => navigation.navigate('ColumnItem', {colId: column.id})}
+                  onLongPress={() => setEditingColumn(column.id)}
+                >
+                  {column.title}
+                </Text>
+              }
+
             </View>
           );
         })}
@@ -64,6 +87,9 @@ const styles = {
     paddingVertical: 20,
     marginTop: 10,
   },
+  textInput: {
+    padding: 0
+  }
   // columnText: {
   //   fontSize: 17,
   //   color: '#514D47',

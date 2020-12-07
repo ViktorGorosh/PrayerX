@@ -20,7 +20,6 @@ export default ({navigation}: AddColumnScreenProps) => {
       return;
     }
 
-    setNewColTitle('');
     dispatch(postColumn({title: newColTitle, description: ''}));
     navigation.goBack();
   }, [dispatch, navigation, newColTitle]);
@@ -30,7 +29,7 @@ export default ({navigation}: AddColumnScreenProps) => {
       <View style={styles.inputWrap}>
         <TextInput
           style={generalStyles.mainText}
-          placeholder={'Add new column title...'}
+          placeholder={'Add new column...'}
           autoFocus={true}
           onChangeText={onChangeNewColTitle}
         />
