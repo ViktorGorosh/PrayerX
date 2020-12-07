@@ -23,7 +23,7 @@ function* register(action: PayloadAction<RegisterPayload>) {
       yield put(loginSuccess({name: data.name, id: data.id}));
       yield put(loadingOff())
     } else {
-      yield put(setError('Error'))
+      yield put(setError('Registration failed'))
       yield put(loadingOff())
     }
 
@@ -44,7 +44,7 @@ function* login(action: PayloadAction<LoginPayload>) {
       yield put(loginSuccess({name: data.name, id: data.id}));
       yield put(loadingOff())
     } else {
-      yield put(setError(data.message || 'Wrong username or password'))
+      yield put(setError(data.message || 'Wrong email or password'))
       yield put(loadingOff())
     }
 
