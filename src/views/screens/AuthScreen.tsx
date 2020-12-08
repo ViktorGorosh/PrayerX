@@ -3,9 +3,9 @@ import {StyleSheet, Text, TextInput, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {signUp, signIn, selectUser} from '../../state/ducks/user';
-import {selectError, selectLoading} from "../../state/ducks/meta";
+import {selectError, selectLoading} from '../../state/ducks/meta';
 import {Button, mainButtonStyles} from '../components/TextButton';
-import {AuthScreenProps} from "../../interfaces/navigator";
+import {AuthScreenProps} from '../../interfaces/navigator';
 import generalStyles from './styles';
 
 export default ({navigation}: AuthScreenProps) => {
@@ -64,7 +64,9 @@ export default ({navigation}: AuthScreenProps) => {
         placeholder="Password"
         onChangeText={onChangePassword}
       />
-      {isLoading ? <Text style={generalStyles.mainText}>Загрузка...</Text> : null}
+      {isLoading ? (
+        <Text style={generalStyles.mainText}>Загрузка...</Text>
+      ) : null}
       {error ? <Text style={generalStyles.mainText}>{error}</Text> : null}
 
       <Button text={'Sign in'} styles={mainButtonStyles} onPress={onSignIn} />

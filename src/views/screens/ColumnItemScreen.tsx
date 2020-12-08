@@ -1,19 +1,20 @@
-import React from 'react';
-import {Text, View, ScrollView, Image, StyleSheet} from 'react-native';
+import React, {useCallback} from 'react';
+import {Text, View, ScrollView, Image, StyleSheet, Alert} from 'react-native';
 import {useSelector} from 'react-redux';
 import {selectColumnById} from '../../state/ducks/column';
 import {selectColumnCards} from '../../state/ducks/card';
 import {CustomTextInput} from '../components/CustomTextInput';
 import {Card} from '../../interfaces/card';
 import {Column} from '../../interfaces/column';
-import {ColumnItemScreenProps} from "../../interfaces/navigator";
-import {Store} from "../../interfaces/store";
+import {ColumnItemScreenProps} from '../../interfaces/navigator';
+import {Store} from '../../interfaces/store';
 import generalStyles from './styles';
-import {IconButton} from "../components/IconButton";
+import {IconButton} from '../components/IconButton';
 
 export default ({route, navigation}: ColumnItemScreenProps) => {
-
-  const column: Column = useSelector((state: Store) => selectColumnById(state, route.params.colId))!;
+  const column: Column = useSelector((state: Store) =>
+    selectColumnById(state, route.params.colId),
+  )!;
 
   const cards: Array<Card> = useSelector((state: Store) =>
     selectColumnCards(state, column.id),
@@ -21,13 +22,15 @@ export default ({route, navigation}: ColumnItemScreenProps) => {
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
-      title: column.title
+      title: column.title,
     });
   }, [navigation]);
 
+  const handleCardAdding = useCallback((title) => {}, []);
+
   return (
     <ScrollView style={generalStyles.container}>
-      <CustomTextInput />
+      <CustomTextInput placeholder={'Add card...'} onPress={handleCardAdding} />
       {cards.map((card) => {
         return (
           <View style={styles.cardItem} key={card.id}>

@@ -1,5 +1,7 @@
 import {Card, CardChanges} from '../../../interfaces/card';
 
+export const GET_CARDS = 'card/get';
+
 export interface AddCardAction {
   type: string;
   payload: {

@@ -2,14 +2,18 @@ import React, {useState} from 'react';
 import {ScrollView, Text, TextInput, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {IconButton} from '../components/IconButton';
-import {getColumns, selectColumns, updateColumn} from '../../state/ducks/column';
-import {selectError, selectLoading} from "../../state/ducks/meta";
-import {ColumnListScreenProps} from "../../interfaces/navigator";
+import {
+  getColumns,
+  selectColumns,
+  updateColumn,
+} from '../../state/ducks/column';
+import {getCards} from '../../state/ducks/card/actions';
+import {selectError, selectLoading} from '../../state/ducks/meta';
+import {ColumnListScreenProps} from '../../interfaces/navigator';
 import generalStyles from './styles';
 
 export default ({navigation}: ColumnListScreenProps) => {
-
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -20,15 +24,18 @@ export default ({navigation}: ColumnListScreenProps) => {
         />
       ),
     });
-    dispatch(getColumns())
+    dispatch(getColumns());
+    dispatch(getCards());
   }, [navigation]);
 
   const columns = useSelector(selectColumns);
   const error = useSelector(selectError);
   const isLoading = useSelector(selectLoading);
 
-  const [editingColumn, setEditingColumn] = useState<undefined | number>(undefined)
-  const [colTitle, setColTitle] = useState('')
+  const [editingColumn, setEditingColumn] = useState<undefined | number>(
+    undefined,
+  );
+  const [colTitle, setColTitle] = useState('');
 
   return (
     <View style={generalStyles.container}>
@@ -36,41 +43,45 @@ export default ({navigation}: ColumnListScreenProps) => {
         {columns.map((column) => {
           return (
             <View style={styles.columnItem} key={column.id}>
-              {column.id === editingColumn ?
+              {column.id === editingColumn ? (
                 <TextInput
                   style={[generalStyles.mainText, styles.textInput]}
                   defaultValue={column.title}
                   autoFocus={true}
-
-                  onChangeText={text => setColTitle(text)}
-                  onBlur={
-                    () => {
-                      if (colTitle === '') return;
-
-                      dispatch(updateColumn({title: colTitle, description: '', id: column.id}))
-                      setColTitle('')
+                  onChangeText={(text) => setColTitle(text)}
+                  onBlur={() => {
+                    if (colTitle === '') {
+                      return;
                     }
-                  }
+
+                    dispatch(
+                      updateColumn({
+                        title: colTitle,
+                        description: '',
+                        id: column.id,
+                      }),
+                    );
+                    setColTitle('');
+                  }}
                 />
-
-                :
-
+              ) : (
                 <Text
                   style={generalStyles.mainText}
-                  onPress={() => navigation.navigate('ColumnItem', {colId: column.id})}
-                  onLongPress={() => setEditingColumn(column.id)}
-                >
+                  onPress={() =>
+                    navigation.navigate('ColumnItem', {colId: column.id})
+                  }
+                  onLongPress={() => setEditingColumn(column.id)}>
                   {column.title}
                 </Text>
-              }
-
+              )}
             </View>
           );
         })}
 
-        {isLoading ? <Text style={generalStyles.mainText}>Загрузка...</Text> : null}
+        {isLoading ? (
+          <Text style={generalStyles.mainText}>Загрузка...</Text>
+        ) : null}
         {error ? <Text style={generalStyles.mainText}>{error}</Text> : null}
-
       </ScrollView>
     </View>
   );
@@ -91,8 +102,8 @@ const styles = {
     marginTop: 10,
   },
   textInput: {
-    padding: 0
-  }
+    padding: 0,
+  },
   // columnText: {
   //   fontSize: 17,
   //   color: '#514D47',

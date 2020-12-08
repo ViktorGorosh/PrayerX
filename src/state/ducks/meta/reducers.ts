@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {Meta} from "../../../interfaces/meta";
+import {Meta} from '../../../interfaces/meta';
 
 const initialState: Meta = {
   isLoading: false,
@@ -10,22 +10,22 @@ export const meta = createSlice({
   name: 'download',
   initialState,
   reducers: {
-    loadingOn: state => ({
+    loadingOn: (state) => ({
       ...state,
       isLoading: true,
     }),
-    loadingOff: state => ({
+    loadingOff: (state) => ({
       ...state,
       isLoading: false,
     }),
     setError: (state, action: PayloadAction<string>) => ({
       ...state,
-      error: action.payload
+      error: action.payload,
     }),
-    resetError: state => ({
+    resetError: (state) => ({
       ...state,
-      error: initialState.error
-    })
+      error: initialState.error,
+    }),
   },
 });
 

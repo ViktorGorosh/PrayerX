@@ -10,7 +10,7 @@ import {
   AddColumnScreen,
 } from './views/screens';
 
-import {RootStackParamList} from './interfaces/navigator'
+import {RootStackParamList} from './interfaces/navigator';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -28,7 +28,8 @@ export default () => {
         <Stack.Screen
           name={'ColumnList'}
           component={ColumnListScreen}
-          options={{title: 'My Desk'}}/>
+          options={{title: 'My Desk'}}
+        />
         <Stack.Screen
           name={'ColumnItem'}
           component={ColumnItemScreen}

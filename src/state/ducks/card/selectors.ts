@@ -1,5 +1,5 @@
-import {Store} from "../../../interfaces/store";
-import {Column} from "../../../interfaces/column";
+import {Store} from '../../../interfaces/store';
+import {Column} from '../../../interfaces/column';
 import {Card} from '../../../interfaces/card';
 
 export const selectColumnCards = (state: Store, colId: Column['id']) => {
@@ -7,5 +7,5 @@ export const selectColumnCards = (state: Store, colId: Column['id']) => {
 };
 
 export const selectCardById = (state: Store, cardId: Card['id']) => {
-  return state.cards.find((card: Card) => card.id === cardId)
-}
+  return state.cards.find((card: Card) => card.id === cardId);
+};

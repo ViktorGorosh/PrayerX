@@ -3,9 +3,9 @@ import {StyleSheet, Text, TextInput, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {Button, mainButtonStyles} from '../components/TextButton';
 import {postColumn} from '../../state/ducks/column';
-import {selectError, selectLoading} from "../../state/ducks/meta";
+import {selectError, selectLoading} from '../../state/ducks/meta';
 import generalStyles from './styles';
-import {AddColumnScreenProps} from "../../interfaces/navigator";
+import {AddColumnScreenProps} from '../../interfaces/navigator';
 
 export default ({navigation}: AddColumnScreenProps) => {
   const dispatch = useDispatch();
@@ -35,7 +35,9 @@ export default ({navigation}: AddColumnScreenProps) => {
         />
       </View>
 
-      {isLoading ? <Text style={generalStyles.mainText}>Загрузка...</Text> : null}
+      {isLoading ? (
+        <Text style={generalStyles.mainText}>Загрузка...</Text>
+      ) : null}
       {error ? <Text style={generalStyles.mainText}>{error}</Text> : null}
 
       <Button styles={mainButtonStyles} text={'Add'} onPress={onColumnAdd} />

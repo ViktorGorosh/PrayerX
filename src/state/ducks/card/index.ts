@@ -1,6 +1,11 @@
 import reducer from './reducers';
 
 export {selectColumnCards, selectCardById} from './selectors';
-export {addCard, deleteCard, updateCard} from './actions';
+export {
+  addCardSuccess,
+  deleteCardSuccess,
+  updateCardSuccess,
+  getCardsSuccess,
+} from './actions';
 
 export default reducer;

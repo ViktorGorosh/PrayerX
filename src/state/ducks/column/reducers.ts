@@ -1,6 +1,10 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {Column} from '../../../interfaces/column';
-import {UpdateColumnItemAction, AddColumnAction, UpdateColumnsAction} from './types';
+import {
+  UpdateColumnItemAction,
+  AddColumnAction,
+  UpdateColumnsAction,
+} from './types';
 
 const initialState: Array<Column> = [];
 
@@ -8,9 +12,9 @@ export const column = createSlice({
   name: 'column',
   initialState,
   reducers: {
-    getColumnsSuccess: ((state, action: UpdateColumnsAction) => {
+    getColumnsSuccess: (state, action: UpdateColumnsAction) => {
       return action.payload;
-    }),
+    },
     updateColumnSuccess: (state, action: UpdateColumnItemAction) => {
       return state.map((column) => {
         if (column.id === action.payload.id) {
@@ -21,10 +25,7 @@ export const column = createSlice({
       });
     },
     postColumnSuccess: (state, action: AddColumnAction) => {
-      return [
-        ...state,
-        action.payload
-      ];
+      return [...state, action.payload];
     },
   },
 });

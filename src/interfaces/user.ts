@@ -1,4 +1,4 @@
-import {Column} from "./column";
+import {Column} from './column';
 
 export interface User {
   name: string;
@@ -38,9 +38,9 @@ export interface RegisterResponseData {
 }
 
 export interface LoginResponseData {
-  "email": UserExtended['email'];
-  "id": User['id'];
-  "name": User['name'];
-  "token": string;
+  email: UserExtended['email'];
+  id: User['id'];
+  name: User['name'];
+  token: string;
   message: string;
 }

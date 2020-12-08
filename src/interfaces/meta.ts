@@ -1,4 +1,4 @@
 export interface Meta {
-  isLoading: boolean,
-  error: string
+  isLoading: boolean;
+  error: string;
 }

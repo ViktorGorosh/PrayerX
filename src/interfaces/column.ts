@@ -1,4 +1,4 @@
-import {User} from "./user";
+import {User} from './user';
 
 export interface Column {
   id: number;
@@ -7,12 +7,12 @@ export interface Column {
 }
 
 export interface ColumnExtended extends Column {
-  description: string
+  description: string;
 }
 
 export interface ColumnForPost {
-  title: Column['title'],
-  description: ColumnExtended['description'],
+  title: Column['title'];
+  description: ColumnExtended['description'];
 }
 
 export interface ColumnUpdate {

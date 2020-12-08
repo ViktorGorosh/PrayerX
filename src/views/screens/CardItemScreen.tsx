@@ -8,15 +8,15 @@ import {
   View,
 } from 'react-native';
 import {useSelector} from 'react-redux';
-import {selectCardById} from "../../state/ducks/card";
+import {selectCardById} from '../../state/ducks/card';
 import {selectCardComments} from '../../state/ducks/comment';
 import {CustomTextInput} from '../components/CustomTextInput';
 import {CommentItem} from '../components/CommentItem';
 import {IconButton} from '../components/IconButton';
-import {Store} from "../../interfaces/store";
-import {Card} from "../../interfaces/card";
+import {Store} from '../../interfaces/store';
+import {Card} from '../../interfaces/card';
 import {Comment} from '../../interfaces/comment';
-import {CardItemScreenProps} from '../../interfaces/navigator'
+import {CardItemScreenProps} from '../../interfaces/navigator';
 import generalStyles from './styles';
 
 export default ({route, navigation}: CardItemScreenProps) => {
@@ -24,11 +24,13 @@ export default ({route, navigation}: CardItemScreenProps) => {
 
   // const dispatch = useDispatch()
 
-  const card: Card = useSelector((state: Store) => selectCardById(state, cardId))!;
+  const card: Card = useSelector((state: Store) =>
+    selectCardById(state, cardId),
+  )!;
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
-      title: card.title
+      title: card.title,
     });
   }, [navigation]);
 
@@ -56,7 +58,7 @@ export default ({route, navigation}: CardItemScreenProps) => {
       </View>
       <View style={styles.wrap}>
         <Text style={styles.subtitle}>Description</Text>
-        <CustomTextInput />
+        {/*<CustomTextInput />*/}
         <Text style={generalStyles.mainText}>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex fugiat
           molestiae quas tenetur ullam, velit.
