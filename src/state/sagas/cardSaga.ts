@@ -1,19 +1,30 @@
+import {PayloadAction} from '@reduxjs/toolkit';
 import {call, put, takeEvery, takeLeading} from 'redux-saga/effects';
 import {loadingOff, loadingOn, setError} from '../ducks/meta';
-import {ADD_CARD, GET_CARDS, GET_CARD_BY_ID} from '../ducks/card/types';
 import {
   getCardsSuccess,
   getCardById as getCard,
   addCardSuccess,
+  deleteCardSuccess,
 } from '../ducks/card';
 import {
   addCardService,
   getCardsService,
   getCardByIdService,
+  deleteCardService,
 } from '../../services/cardService';
-import {Card, CardAddInfo} from '../../interfaces/card';
-import {PayloadAction} from '@reduxjs/toolkit';
-import {ColumnForPost} from '../../interfaces/column';
+import {
+  ADD_CARD,
+  GET_CARDS,
+  GET_CARD_BY_ID,
+  DELETE_CARD,
+} from '../ducks/card/types';
+import {
+  AddCardResponseData,
+  Card,
+  CardAddInfo,
+  DeleteCardResponseData,
+} from '../../interfaces/card';
 
 function* getCards() {
   yield put(loadingOn());
@@ -38,7 +49,7 @@ function* getCards() {
 function* getCardById(action: PayloadAction<Card['id']>) {
   yield put(loadingOn());
   try {
-    const data = yield call(getCardByIdService, action.payload);
+    const data: Card = yield call(getCardByIdService, action.payload);
     console.log('Get card by id: ', data);
     if (data.id) {
       // Server must return card
@@ -57,7 +68,10 @@ function* getCardById(action: PayloadAction<Card['id']>) {
 function* addCard(action: PayloadAction<CardAddInfo>) {
   yield put(loadingOn());
   try {
-    const data = yield call(addCardService, action.payload);
+    const data: AddCardResponseData = yield call(
+      addCardService,
+      action.payload,
+    );
     console.log('Add card: ', data);
     if (data.id) {
       // Server must return added card
@@ -73,8 +87,30 @@ function* addCard(action: PayloadAction<CardAddInfo>) {
   }
 }
 
+function* deleteCard(action: PayloadAction<Card['id']>) {
+  yield put(loadingOn());
+  try {
+    const data: DeleteCardResponseData = yield call(
+      deleteCardService,
+      action.payload,
+    );
+    console.log('Delete card: ', data);
+    if (data.raw) {
+      yield put(deleteCardSuccess(action.payload));
+      yield put(loadingOff());
+    } else {
+      yield put(setError("Can't delete card"));
+      yield put(loadingOff());
+    }
+  } catch (e) {
+    yield put(setError(e.message));
+    yield put(loadingOff());
+  }
+}
+
 export function* watchCards() {
   yield takeEvery(GET_CARDS, getCards);
   yield takeLeading(ADD_CARD, addCard);
   yield takeEvery(GET_CARD_BY_ID, getCardById);
+  yield takeLeading(DELETE_CARD, deleteCard);
 }

@@ -15,7 +15,7 @@ export const card = createSlice({
     addCardSuccess: (state, action: PayloadAction<Card>) => {
       return [...state, action.payload];
     },
-    deleteCardSuccess: (state, action: DeleteCardAction) => {
+    deleteCardSuccess: (state, action: PayloadAction<Card['id']>) => {
       return state.filter((card) => card.id !== action.payload);
     },
     updateCardSuccess: (state, action: UpdateCardAction) => {

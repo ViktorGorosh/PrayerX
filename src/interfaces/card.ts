@@ -35,3 +35,7 @@ export interface AddCardResponseData {
   };
   columnId: Column['id'];
 }
+
+export interface DeleteCardResponseData {
+  raw: [];
+}

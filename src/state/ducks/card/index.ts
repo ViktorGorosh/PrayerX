@@ -9,6 +9,7 @@ export {
   getCards,
   addCard,
   getCardById,
+  deleteCard,
 } from './actions';
 
 export default reducer;

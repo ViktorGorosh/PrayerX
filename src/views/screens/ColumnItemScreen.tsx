@@ -1,16 +1,17 @@
 import React, {useCallback} from 'react';
-import {Text, View, ScrollView, Image, StyleSheet, Alert} from 'react-native';
+import {Text, View, ScrollView, Image, StyleSheet} from 'react-native';
+import Swipeable from 'react-native-gesture-handler/Swipeable';
 import {useDispatch, useSelector} from 'react-redux';
 import {selectColumnById} from '../../state/ducks/column';
-import {addCard, selectColumnCards} from '../../state/ducks/card';
+import {addCard, deleteCard, selectColumnCards} from '../../state/ducks/card';
+import {selectError, selectLoading} from '../../state/ducks/meta';
 import {CustomTextInput} from '../components/CustomTextInput';
+import {RightAction} from '../components/RightAction';
+import {Store} from '../../interfaces/store';
+import {ColumnItemScreenProps} from '../../interfaces/navigator';
 import {Card, CardAddInfo} from '../../interfaces/card';
 import {Column} from '../../interfaces/column';
-import {ColumnItemScreenProps} from '../../interfaces/navigator';
-import {Store} from '../../interfaces/store';
 import generalStyles from './styles';
-import {IconButton} from '../components/IconButton';
-import {selectError, selectLoading} from '../../state/ducks/meta';
 
 export default ({route, navigation}: ColumnItemScreenProps) => {
   React.useLayoutEffect(() => {
@@ -41,10 +42,16 @@ export default ({route, navigation}: ColumnItemScreenProps) => {
         description: '',
         title,
       };
-      console.log('clicked');
       dispatch(addCard(cardInfo));
     },
     [column.id, dispatch],
+  );
+
+  const handleCardDelete = useCallback(
+    (id: Card['id']) => {
+      dispatch(deleteCard(id));
+    },
+    [dispatch],
   );
 
   return (
@@ -52,23 +59,30 @@ export default ({route, navigation}: ColumnItemScreenProps) => {
       <CustomTextInput placeholder={'Add card...'} onPress={handleCardAdding} />
       {cards.map((card) => {
         return (
-          <View style={styles.cardItem} key={card.id}>
-            <View style={generalStyles.flexContainer}>
-              <Image
-                source={require('../../img/vertical-line.png')}
-                style={generalStyles.vertLine}
-              />
-              <Text
-                style={generalStyles.mainText}
-                onPress={() =>
-                  navigation.navigate('CardItem', {
-                    cardId: card.id,
-                    colTitle: column.title,
-                  })
-                }>
-                {card.title}
-              </Text>
-            </View>
+          <View style={styles.cardItemWrap} key={card.id}>
+            <Swipeable
+              renderRightActions={() => (
+                <RightAction onPress={() => handleCardDelete(card.id)} />
+              )}>
+              <View style={styles.cardItem}>
+                <View style={generalStyles.flexContainer}>
+                  <Image
+                    source={require('../../img/vertical-line.png')}
+                    style={generalStyles.vertLine}
+                  />
+                  <Text
+                    style={generalStyles.mainText}
+                    onPress={() =>
+                      navigation.navigate('CardItem', {
+                        cardId: card.id,
+                        colTitle: column.title,
+                      })
+                    }>
+                    {card.title}
+                  </Text>
+                </View>
+              </View>
+            </Swipeable>
           </View>
         );
       })}
@@ -81,12 +95,14 @@ export default ({route, navigation}: ColumnItemScreenProps) => {
 };
 
 const styles = StyleSheet.create({
+  cardItemWrap: {
+    marginTop: 10,
+  },
   cardItem: {
     backgroundColor: '#FFFFFF',
     borderBottomWidth: 1,
     borderColor: '#E5E5E5',
     paddingRight: 15,
     paddingVertical: 20,
-    marginTop: 10,
   },
 });
