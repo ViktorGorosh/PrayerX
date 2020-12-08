@@ -1,15 +1,8 @@
 import {Card, CardChanges} from '../../../interfaces/card';
 
 export const GET_CARDS = 'card/get';
-
-export interface AddCardAction {
-  type: string;
-  payload: {
-    colId: Card['colId'];
-    newTitle: Card['title'];
-    author: Card['author'];
-  };
-}
+export const ADD_CARD = 'card/add';
+export const GET_CARD_BY_ID = 'card/getById';
 
 export interface DeleteCardAction {
   type: string;

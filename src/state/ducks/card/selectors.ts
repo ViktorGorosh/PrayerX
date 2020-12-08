@@ -3,7 +3,7 @@ import {Column} from '../../../interfaces/column';
 import {Card} from '../../../interfaces/card';
 
 export const selectColumnCards = (state: Store, colId: Column['id']) => {
-  return state.cards.filter((card: Card) => card.colId === colId);
+  return state.cards.filter((card: Card) => card.columnId === colId);
 };
 
 export const selectCardById = (state: Store, cardId: Card['id']) => {

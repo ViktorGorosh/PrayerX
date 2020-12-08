@@ -7,7 +7,7 @@ import {
   selectColumns,
   updateColumn,
 } from '../../state/ducks/column';
-import {getCards} from '../../state/ducks/card/actions';
+import {getCards} from '../../state/ducks/card';
 import {selectError, selectLoading} from '../../state/ducks/meta';
 import {ColumnListScreenProps} from '../../interfaces/navigator';
 import generalStyles from './styles';

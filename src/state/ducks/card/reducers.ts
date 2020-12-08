@@ -1,9 +1,9 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {v4 as uuidv4} from 'uuid';
-import {Card} from '../../../interfaces/card';
-import {AddCardAction, DeleteCardAction, UpdateCardAction} from './types';
+import {Card, CardAddInfo} from '../../../interfaces/card';
+import {DeleteCardAction, UpdateCardAction} from './types';
 
-const initialState: Array<Card> = [];
+const initialState: Card[] = [];
 
 export const card = createSlice({
   name: 'card',
@@ -12,17 +12,8 @@ export const card = createSlice({
     getCardsSuccess: (state, action: PayloadAction<Card[]>) => {
       return action.payload;
     },
-    addCardSuccess: (state, action: AddCardAction) => {
-      return [
-        ...state,
-        {
-          colId: action.payload.colId,
-          id: uuidv4(),
-          title: action.payload.newTitle,
-          description: null,
-          author: action.payload.author,
-        },
-      ];
+    addCardSuccess: (state, action: PayloadAction<Card>) => {
+      return [...state, action.payload];
     },
     deleteCardSuccess: (state, action: DeleteCardAction) => {
       return state.filter((card) => card.id !== action.payload);

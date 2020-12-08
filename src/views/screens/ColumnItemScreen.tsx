@@ -1,17 +1,28 @@
 import React, {useCallback} from 'react';
 import {Text, View, ScrollView, Image, StyleSheet, Alert} from 'react-native';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {selectColumnById} from '../../state/ducks/column';
-import {selectColumnCards} from '../../state/ducks/card';
+import {addCard, selectColumnCards} from '../../state/ducks/card';
 import {CustomTextInput} from '../components/CustomTextInput';
-import {Card} from '../../interfaces/card';
+import {Card, CardAddInfo} from '../../interfaces/card';
 import {Column} from '../../interfaces/column';
 import {ColumnItemScreenProps} from '../../interfaces/navigator';
 import {Store} from '../../interfaces/store';
 import generalStyles from './styles';
 import {IconButton} from '../components/IconButton';
+import {selectError, selectLoading} from '../../state/ducks/meta';
 
 export default ({route, navigation}: ColumnItemScreenProps) => {
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      title: column.title,
+    });
+  }, [navigation]);
+
+  const dispatch = useDispatch();
+  const error = useSelector(selectError);
+  const isLoading = useSelector(selectLoading);
+
   const column: Column = useSelector((state: Store) =>
     selectColumnById(state, route.params.colId),
   )!;
@@ -20,13 +31,21 @@ export default ({route, navigation}: ColumnItemScreenProps) => {
     selectColumnCards(state, column.id),
   );
 
-  React.useLayoutEffect(() => {
-    navigation.setOptions({
-      title: column.title,
-    });
-  }, [navigation]);
-
-  const handleCardAdding = useCallback((title) => {}, []);
+  const handleCardAdding = useCallback(
+    (title) => {
+      const cardInfo: CardAddInfo = {
+        checked: false,
+        column: {
+          id: column.id,
+        },
+        description: '',
+        title,
+      };
+      console.log('clicked');
+      dispatch(addCard(cardInfo));
+    },
+    [column.id, dispatch],
+  );
 
   return (
     <ScrollView style={generalStyles.container}>
@@ -53,6 +72,10 @@ export default ({route, navigation}: ColumnItemScreenProps) => {
           </View>
         );
       })}
+      {isLoading ? (
+        <Text style={generalStyles.mainText}>Загрузка...</Text>
+      ) : null}
+      {error ? <Text style={generalStyles.mainText}>{error}</Text> : null}
     </ScrollView>
   );
 };
