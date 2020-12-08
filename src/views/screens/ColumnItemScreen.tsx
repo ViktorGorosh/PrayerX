@@ -1,9 +1,21 @@
-import React, {useCallback} from 'react';
-import {Text, View, ScrollView, Image, StyleSheet} from 'react-native';
+import React, {useCallback, useState} from 'react';
+import {
+  Text,
+  View,
+  ScrollView,
+  Image,
+  StyleSheet,
+  TextInput,
+} from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import {useDispatch, useSelector} from 'react-redux';
 import {selectColumnById} from '../../state/ducks/column';
-import {addCard, deleteCard, selectColumnCards} from '../../state/ducks/card';
+import {
+  addCard,
+  deleteCard,
+  selectColumnCards,
+  updateCard,
+} from '../../state/ducks/card';
 import {selectError, selectLoading} from '../../state/ducks/meta';
 import {CustomTextInput} from '../components/CustomTextInput';
 import {RightAction} from '../components/RightAction';
@@ -19,6 +31,11 @@ export default ({route, navigation}: ColumnItemScreenProps) => {
       title: column.title,
     });
   }, [navigation]);
+
+  const [editingCard, setEditingCard] = useState<Card['id'] | undefined>(
+    undefined,
+  );
+  const [cardTitle, setCardTitle] = useState('');
 
   const dispatch = useDispatch();
   const error = useSelector(selectError);
@@ -70,16 +87,40 @@ export default ({route, navigation}: ColumnItemScreenProps) => {
                     source={require('../../img/vertical-line.png')}
                     style={generalStyles.vertLine}
                   />
-                  <Text
-                    style={generalStyles.mainText}
-                    onPress={() =>
-                      navigation.navigate('CardItem', {
-                        cardId: card.id,
-                        colTitle: column.title,
-                      })
-                    }>
-                    {card.title}
-                  </Text>
+                  {card.id !== editingCard ? (
+                    <Text
+                      style={generalStyles.mainText}
+                      onPress={() =>
+                        navigation.navigate('CardItem', {
+                          cardId: card.id,
+                          colTitle: column.title,
+                        })
+                      }
+                      onLongPress={() => setEditingCard(card.id)}>
+                      {card.title}
+                    </Text>
+                  ) : (
+                    <TextInput
+                      style={[generalStyles.mainText, styles.textInput]}
+                      defaultValue={card.title}
+                      autoFocus={true}
+                      onChangeText={(text) => setCardTitle(text)}
+                      onBlur={() => {
+                        if (cardTitle === '') {
+                          return;
+                        }
+
+                        dispatch(
+                          updateCard({
+                            id: card.id,
+                            title: cardTitle,
+                          }),
+                        );
+                        setCardTitle('');
+                        setEditingCard(undefined);
+                      }}
+                    />
+                  )}
                 </View>
               </View>
             </Swipeable>
@@ -104,5 +145,8 @@ const styles = StyleSheet.create({
     borderColor: '#E5E5E5',
     paddingRight: 15,
     paddingVertical: 20,
+  },
+  textInput: {
+    padding: 0,
   },
 });

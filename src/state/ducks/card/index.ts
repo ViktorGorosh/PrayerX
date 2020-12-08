@@ -10,6 +10,7 @@ export {
   addCard,
   getCardById,
   deleteCard,
+  updateCard,
 } from './actions';
 
 export default reducer;

@@ -1,6 +1,12 @@
 import axios from 'axios';
 import {AsyncStorage} from 'react-native';
-import {Card, CardAddInfo, AddCardResponseData} from '../interfaces/card';
+import {
+  Card,
+  CardAddInfo,
+  AddCardResponseData,
+  CardUpdateInfo,
+  DeleteCardResponseData,
+} from '../interfaces/card';
 
 const CARD_API_ENDPOINT = 'http://trello-purrweb.herokuapp.com/cards';
 
@@ -36,13 +42,31 @@ export async function addCardService(
   return response.data;
 }
 
-export async function deleteCardService(id: Card['id']) {
+export async function deleteCardService(
+  id: Card['id'],
+): Promise<DeleteCardResponseData> {
   const token = await AsyncStorage.getItem('token');
   const response = await axios.delete(CARD_API_ENDPOINT + `/${id}`, {
     headers: {
       Authorization: `bearer ${token}`,
     },
   });
+  return response.data;
+}
+
+export async function updateCardService(
+  changes: CardUpdateInfo,
+): Promise<Card> {
+  const token = await AsyncStorage.getItem('token');
+  const response = await axios.put(
+    CARD_API_ENDPOINT + `/${changes.id}`,
+    changes,
+    {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    },
+  );
   console.log(response);
   return response.data;
 }

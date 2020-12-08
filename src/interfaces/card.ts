@@ -25,6 +25,16 @@ export interface CardAddInfo {
   };
 }
 
+export interface CardUpdateInfo {
+  id: Card['id'];
+  title?: Card['title'];
+  description?: Card['description'];
+  checked?: Card['checked'];
+  column?: {
+    id: Column['id'];
+  };
+}
+
 export interface AddCardResponseData {
   id: Card['id'];
   title: Card['title'];

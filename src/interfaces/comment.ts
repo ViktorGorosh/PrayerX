@@ -1,6 +1,8 @@
+import {Card} from './card';
+
 export interface Comment {
-  id: string;
-  cardId: string;
+  id: number;
+  cardId: Card['id'];
   author: string;
   text: string;
 }

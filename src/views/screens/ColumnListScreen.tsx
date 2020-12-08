@@ -10,6 +10,7 @@ import {
 import {getCards} from '../../state/ducks/card';
 import {selectError, selectLoading} from '../../state/ducks/meta';
 import {ColumnListScreenProps} from '../../interfaces/navigator';
+import {Column} from '../../interfaces/column';
 import generalStyles from './styles';
 
 export default ({navigation}: ColumnListScreenProps) => {
@@ -32,7 +33,7 @@ export default ({navigation}: ColumnListScreenProps) => {
   const error = useSelector(selectError);
   const isLoading = useSelector(selectLoading);
 
-  const [editingColumn, setEditingColumn] = useState<undefined | number>(
+  const [editingColumn, setEditingColumn] = useState<undefined | Column['id']>(
     undefined,
   );
   const [colTitle, setColTitle] = useState('');

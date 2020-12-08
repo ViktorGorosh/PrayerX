@@ -6,23 +6,27 @@ import {
   getCardById as getCard,
   addCardSuccess,
   deleteCardSuccess,
+  updateCardSuccess,
 } from '../ducks/card';
 import {
   addCardService,
   getCardsService,
   getCardByIdService,
   deleteCardService,
+  updateCardService,
 } from '../../services/cardService';
 import {
   ADD_CARD,
   GET_CARDS,
   GET_CARD_BY_ID,
   DELETE_CARD,
+  UPDATE_CARD,
 } from '../ducks/card/types';
 import {
   AddCardResponseData,
   Card,
   CardAddInfo,
+  CardUpdateInfo,
   DeleteCardResponseData,
 } from '../../interfaces/card';
 
@@ -108,9 +112,29 @@ function* deleteCard(action: PayloadAction<Card['id']>) {
   }
 }
 
+function* updateCard(action: PayloadAction<CardUpdateInfo>) {
+  yield put(loadingOn());
+  try {
+    const data: Card = yield call(updateCardService, action.payload);
+    console.log('Update data: ', data);
+    if (data.id) {
+      // Server must return updated card
+      yield put(updateCardSuccess(data));
+      yield put(loadingOff());
+    } else {
+      yield put(setError("Can't update card"));
+      yield put(loadingOff());
+    }
+  } catch (e) {
+    yield put(setError(e.message));
+    yield put(loadingOff());
+  }
+}
+
 export function* watchCards() {
   yield takeEvery(GET_CARDS, getCards);
-  yield takeLeading(ADD_CARD, addCard);
   yield takeEvery(GET_CARD_BY_ID, getCardById);
+  yield takeLeading(ADD_CARD, addCard);
   yield takeLeading(DELETE_CARD, deleteCard);
+  yield takeEvery(UPDATE_CARD, updateCard);
 }
