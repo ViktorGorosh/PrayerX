@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {ScrollView, Text, TextInput, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {IconButton} from '../components/IconButton';
-import {getColumns, selectColumns} from '../../state/ducks/column';
+import {getColumns, selectColumns, updateColumn} from '../../state/ducks/column';
 import {selectError, selectLoading} from "../../state/ducks/meta";
 import {ColumnListScreenProps} from "../../interfaces/navigator";
 import generalStyles from './styles';
@@ -46,6 +46,9 @@ export default ({navigation}: ColumnListScreenProps) => {
                   onBlur={
                     () => {
                       if (colTitle === '') return;
+
+                      dispatch(updateColumn({title: colTitle, description: '', id: column.id}))
+                      setColTitle('')
                     }
                   }
                 />
