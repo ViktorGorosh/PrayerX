@@ -16,36 +16,38 @@ import {
   selectColumnCards,
   updateCard,
 } from '../../state/ducks/card';
+import {getComments} from '../../state/ducks/comment';
 import {selectError, selectLoading} from '../../state/ducks/meta';
 import {CustomTextInput} from '../components/CustomTextInput';
 import {RightAction} from '../components/RightAction';
 import {Store} from '../../interfaces/store';
 import {ColumnItemScreenProps} from '../../interfaces/navigator';
 import {Card, CardAddInfo} from '../../interfaces/card';
-import {Column} from '../../interfaces/column';
 import generalStyles from './styles';
 
 export default ({route, navigation}: ColumnItemScreenProps) => {
+  const dispatch = useDispatch();
+
   React.useLayoutEffect(() => {
     navigation.setOptions({
       title: column.title,
     });
+    dispatch(getComments());
   }, [navigation]);
 
   const [editingCard, setEditingCard] = useState<Card['id'] | undefined>(
     undefined,
   );
-  const [cardTitle, setCardTitle] = useState('');
 
-  const dispatch = useDispatch();
+  const [cardTitle, setCardTitle] = useState('');
   const error = useSelector(selectError);
   const isLoading = useSelector(selectLoading);
 
-  const column: Column = useSelector((state: Store) =>
+  const column = useSelector((state: Store) =>
     selectColumnById(state, route.params.colId),
   )!;
 
-  const cards: Array<Card> = useSelector((state: Store) =>
+  const cards = useSelector((state: Store) =>
     selectColumnCards(state, column.id),
   );
 
