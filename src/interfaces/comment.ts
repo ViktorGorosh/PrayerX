@@ -1,3 +1,4 @@
+import {User} from './user';
 import {Card} from './card';
 
 export interface Comment {
@@ -5,10 +6,11 @@ export interface Comment {
   created: string;
   id: number;
   cardId: Card['id'];
-  author: string;
+  userId: User['id'];
 }
 
 export interface CommentAddInfo {
+  cardId: Card['id'];
   body: Comment['body'];
   created: Comment['created'];
 }
@@ -19,12 +21,9 @@ export interface CommentUpdateInfo {
   created?: Comment['created'];
 }
 
-export interface AddCommentResponseData {
-  body: Comment['body'];
-  created: Comment['created'];
-  id: Comment['id'];
-  cardId: Comment['cardId'];
-  author: Comment['author'];
+export interface AddCommentResponseData extends Comment {
+  card: Card;
+  user: User;
 }
 
 export interface DeleteCommentResponseData {

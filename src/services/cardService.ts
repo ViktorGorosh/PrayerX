@@ -8,7 +8,7 @@ import {
   DeleteCardResponseData,
 } from '../interfaces/card';
 
-const CARD_API_ENDPOINT = 'http://trello-purrweb.herokuapp.com/cards';
+export const CARD_API_ENDPOINT = 'http://trello-purrweb.herokuapp.com/cards';
 
 export async function getCardsService(): Promise<Card[]> {
   const token = await AsyncStorage.getItem('token');

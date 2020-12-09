@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {AsyncStorage} from 'react-native';
+import {CARD_API_ENDPOINT} from './cardService';
 import {
   Comment,
   CommentAddInfo,
@@ -32,15 +33,21 @@ export async function getCommentByIdService(
   return response.data;
 }
 
-export async function addCommentService(
-  comment: CommentAddInfo,
-): Promise<AddCommentResponseData> {
+export async function addCommentService({
+  cardId,
+  created,
+  body,
+}: CommentAddInfo): Promise<AddCommentResponseData> {
   const token = await AsyncStorage.getItem('token');
-  const response = await axios.post(COMMENT_API_ENDPOINT, comment, {
-    headers: {
-      Authorization: `bearer ${token}`,
+  const response = await axios.post(
+    CARD_API_ENDPOINT + `/${cardId}/comments`,
+    {body, created},
+    {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
     },
-  });
+  );
   return response.data;
 }
 

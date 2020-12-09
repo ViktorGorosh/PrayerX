@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback, useState} from 'react';
 import {
   Image,
   ScrollView,
@@ -7,22 +7,19 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {selectCardById} from '../../state/ducks/card';
-import {selectCardComments} from '../../state/ducks/comment';
+import {addComment, selectCardComments} from '../../state/ducks/comment';
 import {CommentItem} from '../components/CommentItem';
 import {IconButton} from '../components/IconButton';
 import {Store} from '../../interfaces/store';
 import {Comment} from '../../interfaces/comment';
 import {CardItemScreenProps} from '../../interfaces/navigator';
 import generalStyles from './styles';
+import {selectError, selectLoading} from '../../state/ducks/meta';
 
 export default ({route, navigation}: CardItemScreenProps) => {
   const {colTitle, cardId} = route.params;
-
-  // const dispatch = useDispatch()
-
-  const card = useSelector((state: Store) => selectCardById(state, cardId))!;
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -30,9 +27,30 @@ export default ({route, navigation}: CardItemScreenProps) => {
     });
   }, [navigation]);
 
+  const dispatch = useDispatch();
+
+  const [newComment, setNewComment] = useState('');
+
+  const card = useSelector((state: Store) => selectCardById(state, cardId))!;
   const comments: Array<Comment> = useSelector((state: Store) =>
     selectCardComments(state, cardId),
   );
+  const error = useSelector(selectError);
+  const isLoading = useSelector(selectLoading);
+
+  const onChangeNewComment = useCallback((text) => {
+    setNewComment(text);
+  }, []);
+  const onCommentAdd = useCallback(() => {
+    if (newComment === '') {
+      return;
+    }
+
+    dispatch(
+      addComment({cardId, body: newComment, created: new Date().toString()}),
+    );
+  }, [dispatch, newComment]);
+
   // const [isActive, setActive] = useState(false)
   //
   // const onToggleActive = useCallback(() => setActive(prevState => !prevState), []);
@@ -65,15 +83,20 @@ export default ({route, navigation}: CardItemScreenProps) => {
       </View>
       <View style={styles.line} />
       {comments.map((comment) => {
-        return <CommentItem key={comment.id} comment={comment} />;
+        return <CommentItem key={comment.id} commentId={comment.id} />;
       })}
       <View style={styles.addContainer}>
-        <IconButton onPress={() => 1} type={'comment'} />
+        <IconButton onPress={onCommentAdd} type={'comment'} />
         <TextInput
           style={styles.commentInput}
           placeholder={'Add a comment...'}
+          onChangeText={onChangeNewComment}
         />
       </View>
+      {isLoading ? (
+        <Text style={generalStyles.mainText}>Загрузка...</Text>
+      ) : null}
+      {error ? <Text style={generalStyles.mainText}>{error}</Text> : null}
     </ScrollView>
   );
 };

@@ -1,10 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {Comment} from '../../../interfaces/comment';
-import {
-  AddCommentAction,
-  DeleteCommentAction,
-  UpdateCommentAction,
-} from './types';
+import {Comment, CommentUpdateInfo} from '../../../interfaces/comment';
 
 const initialState: Array<Comment> = [];
 
@@ -15,13 +10,13 @@ export const comment = createSlice({
     getCommentsSuccess: (state, action: PayloadAction<Comment[]>) => {
       return action.payload;
     },
-    addCommentSuccess: (state, action: AddCommentAction) => {
+    addCommentSuccess: (state, action: PayloadAction<Comment>) => {
       return [...state, action.payload];
     },
-    deleteCommentSuccess: (state, action: DeleteCommentAction) => {
+    deleteCommentSuccess: (state, action: PayloadAction<Comment['id']>) => {
       return state.filter((comment) => comment.id !== action.payload);
     },
-    updateCommentSuccess: (state, action: UpdateCommentAction) => {
+    updateCommentSuccess: (state, action: PayloadAction<CommentUpdateInfo>) => {
       return state.map((comment) => {
         if (comment.id === action.payload.id) {
           return {

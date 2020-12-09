@@ -1,20 +1,33 @@
 import React, {useCallback, useState} from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, TextInput, View} from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
-import {useDispatch} from 'react-redux';
-import {updateComment, deleteComment} from '../../../state/ducks/comment';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  updateComment,
+  deleteComment,
+  selectCommentById,
+} from '../../../state/ducks/comment';
 import {RightAction} from '../RightAction';
+import {Store} from '../../../interfaces/store';
 import {Comment} from '../../../interfaces/comment';
 import generalStyles from '../../screens/styles';
+import {updateCard} from '../../../state/ducks/card';
 
 interface CommentItemProps {
-  comment: Comment;
+  commentId: Comment['id'];
 }
 
-export default ({comment}: CommentItemProps) => {
-  // const [text, setText] = useState(comment.text);
-
+export default ({commentId}: CommentItemProps) => {
   const dispatch = useDispatch();
+
+  const comment = useSelector((state: Store) =>
+    selectCommentById(state, commentId),
+  )!;
+
+  const [editingComment, setEditingComment] = useState<
+    Comment['id'] | undefined
+  >(undefined);
+  const [text, setText] = useState(comment.body);
 
   // const onCommentTextChange = useCallback((e) => setText(e.target.value), []);
   //
@@ -27,7 +40,7 @@ export default ({comment}: CommentItemProps) => {
   // }, [comment.id, dispatch, text]);
 
   const onCommentDelete = useCallback(() => {
-    dispatch(deleteComment(comment.id));
+    // dispatch(deleteComment(comment.id));
   }, [comment.id, dispatch]);
 
   return (
@@ -37,8 +50,31 @@ export default ({comment}: CommentItemProps) => {
       <View style={styles.commentItem}>
         <Image source={require('../../../img/avatar.png')} />
         <View style={styles.textWrap}>
-          <Text style={styles.author}>{comment.author}</Text>
-          <Text style={generalStyles.mainText}>{comment.text}</Text>
+          <Text style={styles.author}>{comment.userId}</Text>
+          {comment.id !== editingComment ? (
+            <Text style={generalStyles.mainText}>{comment.body}</Text>
+          ) : (
+            <TextInput
+              style={[generalStyles.mainText, styles.textInput]}
+              defaultValue={comment.body}
+              autoFocus={true}
+              onChangeText={(text) => setText(text)}
+              // onBlur={() => {
+              //   if (text === '') {
+              //     return;
+              //   }
+              //
+              //   dispatch(
+              //     updateComment({
+              //       id: comment.id,
+              //       title: commentTitle,
+              //     }),
+              //   );
+              //   setcommentTitle('');
+              //   setEditingcomment(undefined);
+              // }}
+            />
+          )}
         </View>
       </View>
     </Swipeable>
@@ -62,5 +98,8 @@ const styles = StyleSheet.create({
   author: {
     ...generalStyles.mainText,
     fontWeight: 'bold',
+  },
+  textInput: {
+    padding: 0,
   },
 });

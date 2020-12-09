@@ -57,7 +57,7 @@ function* getCommentById(action: PayloadAction<Comment['id']>) {
     console.log('Get Comment by id: ', data);
     if (data.id) {
       // Server must return Comment
-      // yield put(addCommentSuccess(data));
+      yield put(addCommentSuccess(data));
       yield put(loadingOff());
     } else {
       yield put(setError("Can't get Comment by id"));
@@ -79,7 +79,7 @@ function* addComment(action: PayloadAction<CommentAddInfo>) {
     console.log('Add Comment: ', data);
     if (data.id) {
       // Server must return added Comment
-      // yield put(getComment(data.id));
+      yield put(getComment(data.id));
       yield put(loadingOff());
     } else {
       yield put(setError("Can't add Comment"));

@@ -1,6 +1,6 @@
 import reducer from './reducers';
 
-export {selectCardComments} from './selectors';
+export {selectCardComments, selectCommentById} from './selectors';
 export {
   getCommentsSuccess,
   addCommentSuccess,
