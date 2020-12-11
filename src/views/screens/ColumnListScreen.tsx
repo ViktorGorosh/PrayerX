@@ -63,6 +63,7 @@ export default ({navigation}: ColumnListScreenProps) => {
                       }),
                     );
                     setColTitle('');
+                    setEditingColumn(undefined);
                   }}
                 />
               ) : (

@@ -1,8 +1,8 @@
 import {all} from 'redux-saga/effects';
-import {watchUserAuthentication} from './authenticationSaga';
-import {watchColumns} from './columnSaga';
-import {watchCards} from './cardSaga';
-import {watchComments} from './commentSaga';
+import {watchUserAuthentication} from './authentication';
+import {watchColumns} from './column';
+import {watchCards} from './card';
+import {watchComments} from './comment';
 
 export default function* rootSaga() {
   yield all([
