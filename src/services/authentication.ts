@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {API_URL} from 'react-native-dotenv'
 import {
   LoginPayload,
   LoginResponseData,
@@ -13,6 +14,7 @@ const LOGIN_API_ENDPOINT = 'http://trello-purrweb.herokuapp.com/auth/sign-in';
 export async function registerUserService(
   user: RegisterPayload,
 ): Promise<RegisterResponseData> {
+  console.log(API_URL)
   const response = await axios.post(REGISTER_API_ENDPOINT, user);
   return response.data;
 }
