@@ -1,10 +1,6 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {Column} from '../../../interfaces/column';
-import {
-  UpdateColumnItemAction,
-  AddColumnAction,
-  UpdateColumnsAction,
-} from './types';
+import {UpdateColumnItemAction} from './types';
 
 const initialState: Array<Column> = [];
 
@@ -12,7 +8,7 @@ export const column = createSlice({
   name: 'column',
   initialState,
   reducers: {
-    getColumnsSuccess: (state, action: UpdateColumnsAction) => {
+    getColumnsSuccess: (state, action: PayloadAction<Column[]>) => {
       return action.payload;
     },
     updateColumnSuccess: (state, action: UpdateColumnItemAction) => {
@@ -24,7 +20,7 @@ export const column = createSlice({
         return column;
       });
     },
-    postColumnSuccess: (state, action: AddColumnAction) => {
+    postColumnSuccess: (state, action: PayloadAction<Column>) => {
       return [...state, action.payload];
     },
   },
