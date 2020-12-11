@@ -8,6 +8,7 @@ import {
   View,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
+import {VerticalLine} from '../../img'
 import {selectCardById} from '../../state/ducks/card';
 import {addComment, selectCardComments} from '../../state/ducks/comment';
 import {CommentItem} from '../components/CommentItem';
@@ -61,7 +62,7 @@ export default ({route, navigation}: CardItemScreenProps) => {
     <ScrollView style={styles.container}>
       <View style={styles.colTitle}>
         <Image
-          source={require('../../img/vertical-line.png')}
+          source={VerticalLine}
           style={generalStyles.vertLine}
         />
         <Text style={generalStyles.mainText}>In '{colTitle}' column</Text>

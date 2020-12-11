@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import {useDispatch, useSelector} from 'react-redux';
+import {VerticalLine} from '../../img'
 import {selectColumnById} from '../../state/ducks/column';
 import {
   addCard,
@@ -86,7 +87,7 @@ export default ({route, navigation}: ColumnItemScreenProps) => {
               <View style={styles.cardItem}>
                 <View style={generalStyles.flexContainer}>
                   <Image
-                    source={require('../../img/vertical-line.png')}
+                    source={VerticalLine}
                     style={generalStyles.vertLine}
                   />
                   {card.id !== editingCard ? (

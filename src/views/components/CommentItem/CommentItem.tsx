@@ -2,6 +2,7 @@ import React, {useCallback, useState} from 'react';
 import {Image, StyleSheet, Text, TextInput, View} from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import {useDispatch, useSelector} from 'react-redux';
+import {AvatarIcon} from '../../../img'
 import {selectCommentById} from '../../../state/ducks/comment';
 import {RightAction} from '../RightAction';
 import {Store} from '../../../store';
@@ -43,7 +44,7 @@ export default ({commentId}: CommentItemProps) => {
       key={comment.id}
       renderRightActions={() => <RightAction onPress={onCommentDelete} />}>
       <View style={styles.commentItem}>
-        <Image source={require('../../../img/avatar.png')} />
+        <Image source={AvatarIcon} />
         <View style={styles.textWrap}>
           <Text style={styles.author}>{comment.userId}</Text>
           {comment.id !== editingComment ? (
