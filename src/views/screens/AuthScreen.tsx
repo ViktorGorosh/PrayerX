@@ -2,7 +2,7 @@ import React, {useCallback, useLayoutEffect, useState} from 'react';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 
-import {signUp, signIn, selectUser} from '../../state/ducks/user';
+import {selectUser, signIn, signUp} from '../../state/ducks/user';
 import {selectError, selectLoading} from '../../state/ducks/meta';
 import {Button, mainButtonStyles} from '../components/TextButton';
 import {AuthScreenProps} from '../../interfaces/navigator';

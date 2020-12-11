@@ -8,7 +8,7 @@ import {
 } from '../../services/authentication';
 import {loginSuccess} from '../ducks/user';
 import {getColumnsSuccess} from '../ducks/column';
-import {loadingOn, setError, loadingOff} from '../ducks/meta';
+import {loadingOff, loadingOn, setError} from '../ducks/meta';
 import {SIGN_IN, SIGN_UP} from '../ducks/user/types';
 import {
   LoginPayload,

@@ -10,7 +10,7 @@ import {
   postColumnSuccess,
   updateColumnSuccess,
 } from '../ducks/column';
-import {setError, loadingOff, loadingOn} from '../ducks/meta';
+import {loadingOff, loadingOn, setError} from '../ducks/meta';
 import {GET_COLUMNS, POST_COLUMN, UPDATE_COLUMN} from '../ducks/column/types';
 import {
   Column,

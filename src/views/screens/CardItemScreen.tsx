@@ -7,12 +7,12 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import {useSelector, useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {selectCardById} from '../../state/ducks/card';
 import {addComment, selectCardComments} from '../../state/ducks/comment';
 import {CommentItem} from '../components/CommentItem';
 import {IconButton} from '../components/IconButton';
-import {Store} from '../../interfaces/store';
+import {Store} from '../../store';
 import {Comment} from '../../interfaces/comment';
 import {CardItemScreenProps} from '../../interfaces/navigator';
 import generalStyles from './styles';

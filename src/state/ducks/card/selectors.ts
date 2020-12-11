@@ -1,4 +1,4 @@
-import {Store} from '../../../interfaces/store';
+import {Store} from '../../../store';
 import {Column} from '../../../interfaces/column';
 import {Card} from '../../../interfaces/card';
 

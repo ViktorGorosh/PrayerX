@@ -1,9 +1,9 @@
 import axios from 'axios';
 import {
   LoginPayload,
+  LoginResponseData,
   RegisterPayload,
   RegisterResponseData,
-  LoginResponseData,
 } from '../interfaces/user';
 
 const REGISTER_API_ENDPOINT =

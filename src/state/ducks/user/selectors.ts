@@ -1,3 +1,3 @@
-import {Store} from '../../../interfaces/store';
+import {Store} from '../../../store';
 
 export const selectUser = (state: Store) => state.user;

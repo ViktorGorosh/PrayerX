@@ -2,9 +2,9 @@ import {createAction} from '@reduxjs/toolkit';
 import {card} from './reducers';
 import {
   ADD_CARD,
-  GET_CARDS,
-  GET_CARD_BY_ID,
   DELETE_CARD,
+  GET_CARD_BY_ID,
+  GET_CARDS,
   UPDATE_CARD,
 } from './types';
 import {Card, CardAddInfo, CardUpdateInfo} from '../../../interfaces/card';

@@ -3,11 +3,11 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import {
+  AddColumnScreen,
   AuthScreen,
   CardItemScreen,
-  ColumnListScreen,
   ColumnItemScreen,
-  AddColumnScreen,
+  ColumnListScreen,
 } from './views/screens';
 
 import {RootStackParamList} from './interfaces/navigator';

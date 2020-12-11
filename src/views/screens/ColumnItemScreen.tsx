@@ -1,11 +1,11 @@
 import React, {useCallback, useState} from 'react';
 import {
-  Text,
-  View,
-  ScrollView,
   Image,
+  ScrollView,
   StyleSheet,
+  Text,
   TextInput,
+  View,
 } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import {useDispatch, useSelector} from 'react-redux';
@@ -20,7 +20,7 @@ import {getComments} from '../../state/ducks/comment';
 import {selectError, selectLoading} from '../../state/ducks/meta';
 import {CustomTextInput} from '../components/CustomTextInput';
 import {RightAction} from '../components/RightAction';
-import {Store} from '../../interfaces/store';
+import {Store} from '../../store';
 import {ColumnItemScreenProps} from '../../interfaces/navigator';
 import {Card, CardAddInfo} from '../../interfaces/card';
 import generalStyles from './styles';

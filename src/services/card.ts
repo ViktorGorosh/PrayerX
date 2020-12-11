@@ -1,9 +1,9 @@
 import axios from 'axios';
 import {AsyncStorage} from 'react-native';
 import {
+  AddCardResponseData,
   Card,
   CardAddInfo,
-  AddCardResponseData,
   CardUpdateInfo,
   DeleteCardResponseData,
 } from '../interfaces/card';

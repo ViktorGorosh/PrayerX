@@ -2,24 +2,24 @@ import {PayloadAction} from '@reduxjs/toolkit';
 import {call, put, takeEvery, takeLeading} from 'redux-saga/effects';
 import {loadingOff, loadingOn, setError} from '../ducks/meta';
 import {
-  getCardsSuccess,
-  getCardById as getCard,
   addCardSuccess,
   deleteCardSuccess,
+  getCardById as getCard,
+  getCardsSuccess,
   updateCardSuccess,
 } from '../ducks/card';
 import {
   addCardService,
-  getCardsService,
-  getCardByIdService,
   deleteCardService,
+  getCardByIdService,
+  getCardsService,
   updateCardService,
 } from '../../services/card';
 import {
   ADD_CARD,
-  GET_CARDS,
-  GET_CARD_BY_ID,
   DELETE_CARD,
+  GET_CARD_BY_ID,
+  GET_CARDS,
   UPDATE_CARD,
 } from '../ducks/card/types';
 import {

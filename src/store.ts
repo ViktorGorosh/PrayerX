@@ -9,7 +9,7 @@ import metaReducer from './state/ducks/meta';
 
 const sagaMiddleware = createSagaMiddleware();
 
-export default configureStore({
+const store = configureStore({
   reducer: {
     user: userReducer,
     columns: columnsReducer,
@@ -19,5 +19,9 @@ export default configureStore({
   },
   middleware: getDefaultMiddleware().concat(sagaMiddleware),
 });
+
+export default store;
+
+export type Store = ReturnType<typeof store.getState>;
 
 sagaMiddleware.run(rootSaga);

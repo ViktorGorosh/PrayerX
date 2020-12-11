@@ -2,29 +2,27 @@ import {PayloadAction} from '@reduxjs/toolkit';
 import {call, put, takeEvery, takeLeading} from 'redux-saga/effects';
 import {loadingOff, loadingOn, setError} from '../ducks/meta';
 import {
-  getCommentsSuccess,
-  getCommentById as getComment,
   addCommentSuccess,
-  deleteCommentSuccess,
-  updateCommentSuccess,
+  getCommentById as getComment,
+  getCommentsSuccess,
 } from '../ducks/comment';
 import {
   addCommentService,
-  getCommentsService,
-  getCommentByIdService,
   deleteCommentService,
+  getCommentByIdService,
+  getCommentsService,
   updateCommentService,
 } from '../../services/comment';
 import {
   ADD_COMMENT,
-  GET_COMMENTS,
-  GET_COMMENT_BY_ID,
   DELETE_COMMENT,
+  GET_COMMENT_BY_ID,
+  GET_COMMENTS,
   UPDATE_COMMENT,
 } from '../ducks/comment/types';
 import {
-  Comment,
   AddCommentResponseData,
+  Comment,
   CommentAddInfo,
   CommentUpdateInfo,
   DeleteCommentResponseData,
