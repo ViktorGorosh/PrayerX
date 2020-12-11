@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {AsyncStorage} from 'react-native';
-import {CARD_API_ENDPOINT} from './cardService';
+import {CARD_API_ENDPOINT} from './card';
 import {
   Comment,
   CommentAddInfo,

@@ -14,7 +14,7 @@ import {
   getCommentByIdService,
   deleteCommentService,
   updateCommentService,
-} from '../../services/commentService';
+} from '../../services/comment';
 import {
   ADD_COMMENT,
   GET_COMMENTS,

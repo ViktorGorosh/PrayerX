@@ -4,7 +4,7 @@ import {
   getColumnsService,
   postColumnService,
   updateColumnService,
-} from '../../services/columnService';
+} from '../../services/column';
 import {
   getColumnsSuccess,
   postColumnSuccess,

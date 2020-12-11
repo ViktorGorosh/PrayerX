@@ -5,7 +5,7 @@ import {PayloadAction} from '@reduxjs/toolkit';
 import {
   loginUserService,
   registerUserService,
-} from '../../services/authenticationService';
+} from '../../services/authentication';
 import {loginSuccess} from '../ducks/user';
 import {getColumnsSuccess} from '../ducks/column';
 import {loadingOn, setError, loadingOff} from '../ducks/meta';

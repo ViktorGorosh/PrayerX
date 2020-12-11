@@ -14,7 +14,7 @@ import {
   getCardByIdService,
   deleteCardService,
   updateCardService,
-} from '../../services/cardService';
+} from '../../services/card';
 import {
   ADD_CARD,
   GET_CARDS,
