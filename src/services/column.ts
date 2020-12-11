@@ -39,7 +39,7 @@ export async function updateColumnService({
 }: ColumnUpdate): Promise<UpdateColumnResponseData> {
   const token = await AsyncStorage.getItem('token');
   const response = await axios.put(
-    COLUMN_API_ENDPOINT + `/${id}`,
+    `${COLUMN_API_ENDPOINT}/${id}`,
     {title, description},
     {
       headers: {

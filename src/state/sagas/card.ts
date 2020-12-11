@@ -37,15 +37,13 @@ function* getCards() {
     console.log('Get cards: ', data);
     if (Array.isArray(data)) {
       // Server must return an array of cards
-
       yield put(getCardsSuccess(data));
-      yield put(loadingOff());
     } else {
-      yield put(setError("Can't download the cards"));
-      yield put(loadingOff());
+      throw new Error("Can't download the cards");
     }
   } catch (e) {
     yield put(setError(e.message));
+  } finally {
     yield put(loadingOff());
   }
 }
@@ -58,13 +56,12 @@ function* getCardById(action: PayloadAction<Card['id']>) {
     if (data.id) {
       // Server must return card
       yield put(addCardSuccess(data));
-      yield put(loadingOff());
     } else {
-      yield put(setError("Can't get card by id"));
-      yield put(loadingOff());
+      throw new Error("Can't get card by id");
     }
   } catch (e) {
     yield put(setError(e.message));
+  } finally {
     yield put(loadingOff());
   }
 }
@@ -80,13 +77,12 @@ function* addCard(action: PayloadAction<CardAddInfo>) {
     if (data.id) {
       // Server must return added card
       yield put(getCard(data.id));
-      yield put(loadingOff());
     } else {
-      yield put(setError("Can't add card"));
-      yield put(loadingOff());
+      throw new Error("Can't add card");
     }
   } catch (e) {
     yield put(setError(e.message));
+  } finally {
     yield put(loadingOff());
   }
 }
@@ -101,13 +97,12 @@ function* deleteCard(action: PayloadAction<Card['id']>) {
     console.log('Delete card: ', data);
     if (data.raw) {
       yield put(deleteCardSuccess(action.payload));
-      yield put(loadingOff());
     } else {
-      yield put(setError("Can't delete card"));
-      yield put(loadingOff());
+      throw new Error("Can't delete card");
     }
   } catch (e) {
     yield put(setError(e.message));
+  } finally {
     yield put(loadingOff());
   }
 }
@@ -120,13 +115,12 @@ function* updateCard(action: PayloadAction<CardUpdateInfo>) {
     if (data.id) {
       // Server must return updated card
       yield put(updateCardSuccess(data));
-      yield put(loadingOff());
     } else {
-      yield put(setError("Can't update card"));
-      yield put(loadingOff());
+      throw new Error("Can't update card");
     }
   } catch (e) {
     yield put(setError(e.message));
+  } finally {
     yield put(loadingOff());
   }
 }

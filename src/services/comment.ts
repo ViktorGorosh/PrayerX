@@ -25,7 +25,7 @@ export async function getCommentByIdService(
   id: Comment['id'],
 ): Promise<Comment> {
   const token = await AsyncStorage.getItem('token');
-  const response = await axios.get(COMMENT_API_ENDPOINT + `/${id}`, {
+  const response = await axios.get(`${COMMENT_API_ENDPOINT}/${id}`, {
     headers: {
       Authorization: `bearer ${token}`,
     },
@@ -40,7 +40,7 @@ export async function addCommentService({
 }: CommentAddInfo): Promise<AddCommentResponseData> {
   const token = await AsyncStorage.getItem('token');
   const response = await axios.post(
-    CARD_API_ENDPOINT + `/${cardId}/comments`,
+    `${CARD_API_ENDPOINT}/${cardId}/comments`,
     {body, created},
     {
       headers: {
@@ -55,7 +55,7 @@ export async function deleteCommentService(
   id: Comment['id'],
 ): Promise<DeleteCommentResponseData> {
   const token = await AsyncStorage.getItem('token');
-  const response = await axios.delete(COMMENT_API_ENDPOINT + `/${id}`, {
+  const response = await axios.delete(`${COMMENT_API_ENDPOINT}/${id}`, {
     headers: {
       Authorization: `bearer ${token}`,
     },
@@ -68,7 +68,7 @@ export async function updateCommentService(
 ): Promise<Comment> {
   const token = await AsyncStorage.getItem('token');
   const response = await axios.put(
-    COMMENT_API_ENDPOINT + `/${changes.id}`,
+    `${COMMENT_API_ENDPOINT}/${changes.id}`,
     changes,
     {
       headers: {

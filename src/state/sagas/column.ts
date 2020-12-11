@@ -1,5 +1,5 @@
 import {PayloadAction} from '@reduxjs/toolkit';
-import {call, put, takeEvery, takeLeading} from 'redux-saga/effects';
+import {call, put, takeLeading} from 'redux-saga/effects';
 import {
   getColumnsService,
   postColumnService,
@@ -24,17 +24,16 @@ function* getColumns() {
   yield put(loadingOn());
   try {
     const data: Column[] = yield call(getColumnsService);
-
+    console.log('Get columns: ', data);
     if (Array.isArray(data)) {
       // Server must return an array of columns
       yield put(getColumnsSuccess(data));
-      yield put(loadingOff());
     } else {
       yield put(setError("Can't download the columns"));
-      yield put(loadingOff());
     }
   } catch (e) {
-    yield put(setError('Network error'));
+    yield put(setError(e.message));
+  } finally {
     yield put(loadingOff());
   }
 }
@@ -46,18 +45,18 @@ function* postColumn(action: PayloadAction<ColumnForPost>) {
       postColumnService,
       action.payload,
     );
+    console.log('Post column: ', data);
     if (data.title && data.id && data.user) {
       // Server must return new column
       yield put(
         postColumnSuccess({title: data.title, userId: data.user, id: data.id}),
       );
-      yield put(loadingOff());
     } else {
-      yield put(setError('Failed to post column'));
-      yield put(loadingOff());
+      throw new Error('Failed to post column');
     }
   } catch (e) {
     yield put(setError(e.message));
+  } finally {
     yield put(loadingOff());
   }
 }
@@ -69,22 +68,22 @@ function* updateColumn(action: PayloadAction<ColumnUpdate>) {
       updateColumnService,
       action.payload,
     );
+    console.log('Update column: ', data);
     if (data.title && data.id && data.userId) {
       // Server must return updated column
       yield put(updateColumnSuccess({id: data.id, newTitle: data.title}));
-      yield put(loadingOff());
     } else {
-      yield put(setError('Failed to update column'));
-      yield put(loadingOff());
+      throw new Error('Failed to update column');
     }
   } catch (e) {
     yield put(setError(e.message));
+  } finally {
     yield put(loadingOff());
   }
 }
 
 export function* watchColumns() {
-  yield takeEvery(GET_COLUMNS, getColumns);
+  yield takeLeading(GET_COLUMNS, getColumns);
   yield takeLeading(POST_COLUMN, postColumn);
   yield takeLeading(UPDATE_COLUMN, updateColumn);
 }

@@ -1,4 +1,4 @@
-import {call, put, takeLatest} from 'redux-saga/effects';
+import {call, put, takeLeading} from 'redux-saga/effects';
 // TODO: fix community AsyncStorage and use it instead
 import {AsyncStorage} from 'react-native';
 import {PayloadAction} from '@reduxjs/toolkit';
@@ -24,19 +24,18 @@ function* register(action: PayloadAction<RegisterPayload>) {
       registerUserService,
       action.payload,
     );
-
+    console.log('Registration: ', data);
     if (data.token) {
       // Server returns token, if registration was successful
       yield call(AsyncStorage.setItem, 'token', data.token);
       yield put(getColumnsSuccess(data.columns));
       yield put(loginSuccess({name: data.name, id: data.id}));
-      yield put(loadingOff());
     } else {
-      yield put(setError('Registration failed'));
-      yield put(loadingOff());
+      throw new Error('Registration failed');
     }
   } catch (e) {
-    yield put(setError('Network error'));
+    yield put(setError(e.message));
+  } finally {
     yield put(loadingOff());
   }
 }
@@ -48,23 +47,22 @@ function* login(action: PayloadAction<LoginPayload>) {
       loginUserService,
       action.payload,
     );
-
+    console.log('Authorization: ', data);
     if (data.token) {
       // Server returns token, if authentication was successful
       yield call(AsyncStorage.setItem, 'token', data.token);
       yield put(loginSuccess({name: data.name, id: data.id}));
-      yield put(loadingOff());
     } else {
-      yield put(setError(data.message || 'Wrong email or password'));
-      yield put(loadingOff());
+      throw new Error('Wrong email or password');
     }
   } catch (e) {
-    yield put(setError(e.message || 'Network error'));
+    yield put(setError(e.message));
+  } finally {
     yield put(loadingOff());
   }
 }
 
 export function* watchUserAuthentication() {
-  yield takeLatest(SIGN_UP, register);
-  yield takeLatest(SIGN_IN, login);
+  yield takeLeading(SIGN_UP, register);
+  yield takeLeading(SIGN_IN, login);
 }

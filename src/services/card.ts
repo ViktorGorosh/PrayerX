@@ -22,7 +22,7 @@ export async function getCardsService(): Promise<Card[]> {
 
 export async function getCardByIdService(id: Card['id']): Promise<Card> {
   const token = await AsyncStorage.getItem('token');
-  const response = await axios.get(CARD_API_ENDPOINT + `/${id}`, {
+  const response = await axios.get(`${CARD_API_ENDPOINT}/${id}`, {
     headers: {
       Authorization: `bearer ${token}`,
     },
@@ -46,7 +46,7 @@ export async function deleteCardService(
   id: Card['id'],
 ): Promise<DeleteCardResponseData> {
   const token = await AsyncStorage.getItem('token');
-  const response = await axios.delete(CARD_API_ENDPOINT + `/${id}`, {
+  const response = await axios.delete(`${CARD_API_ENDPOINT}/${id}`, {
     headers: {
       Authorization: `bearer ${token}`,
     },
@@ -59,7 +59,7 @@ export async function updateCardService(
 ): Promise<Card> {
   const token = await AsyncStorage.getItem('token');
   const response = await axios.put(
-    CARD_API_ENDPOINT + `/${changes.id}`,
+    `${CARD_API_ENDPOINT}/${changes.id}`,
     changes,
     {
       headers: {

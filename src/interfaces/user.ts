@@ -34,7 +34,7 @@ export interface RegisterResponseData {
   name: User['name'];
   password: UserExtended['password'];
   token: string;
-  message: string;
+  message?: string;
 }
 
 export interface LoginResponseData {
@@ -42,5 +42,5 @@ export interface LoginResponseData {
   id: User['id'];
   name: User['name'];
   token: string;
-  message: string;
+  message?: string;
 }
