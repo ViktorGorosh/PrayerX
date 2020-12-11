@@ -125,7 +125,7 @@ function* updateComment(action: PayloadAction<CommentUpdateInfo>) {
 }
 
 export function* watchComments() {
-  yield takeEvery(GET_COMMENTS, getComments);
+  yield takeLeading(GET_COMMENTS, getComments);
   yield takeEvery(GET_COMMENT_BY_ID, getCommentById);
   yield takeLeading(ADD_COMMENT, addComment);
   yield takeLeading(DELETE_COMMENT, deleteComment);

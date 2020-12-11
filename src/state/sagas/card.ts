@@ -126,7 +126,7 @@ function* updateCard(action: PayloadAction<CardUpdateInfo>) {
 }
 
 export function* watchCards() {
-  yield takeEvery(GET_CARDS, getCards);
+  yield takeLeading(GET_CARDS, getCards);
   yield takeEvery(GET_CARD_BY_ID, getCardById);
   yield takeLeading(ADD_CARD, addCard);
   yield takeLeading(DELETE_CARD, deleteCard);

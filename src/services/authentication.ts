@@ -6,9 +6,8 @@ import {
   RegisterResponseData,
 } from '../interfaces/user';
 
-const REGISTER_API_ENDPOINT =
-  'http://trello-purrweb.herokuapp.com/auth/sign-up';
-const LOGIN_API_ENDPOINT = 'http://trello-purrweb.herokuapp.com/auth/sign-in';
+const REGISTER_API_ENDPOINT = '/auth/sign-up';
+const LOGIN_API_ENDPOINT = '/auth/sign-in';
 
 export async function registerUserService(
   user: RegisterPayload,

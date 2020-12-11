@@ -1,5 +1,4 @@
 import axios from 'axios';
-import {AsyncStorage} from 'react-native';
 import {
   Column,
   ColumnForPost,
@@ -8,27 +7,17 @@ import {
   UpdateColumnResponseData,
 } from '../interfaces/column';
 
-const COLUMN_API_ENDPOINT = 'http://trello-purrweb.herokuapp.com/columns';
+const COLUMN_API_ENDPOINT = '/columns';
 
 export async function getColumnsService(): Promise<Column[]> {
-  const token = await AsyncStorage.getItem('token');
-  const response = await axios.get(COLUMN_API_ENDPOINT, {
-    headers: {
-      Authorization: `bearer ${token}`,
-    },
-  });
+  const response = await axios.get(COLUMN_API_ENDPOINT);
   return response.data;
 }
 
 export async function postColumnService(
   column: ColumnForPost,
 ): Promise<PostColumnResponseData> {
-  const token = await AsyncStorage.getItem('token');
-  const response = await axios.post(COLUMN_API_ENDPOINT, column, {
-    headers: {
-      Authorization: `bearer ${token}`,
-    },
-  });
+  const response = await axios.post(COLUMN_API_ENDPOINT, column);
   return response.data;
 }
 
@@ -37,15 +26,9 @@ export async function updateColumnService({
   description,
   id,
 }: ColumnUpdate): Promise<UpdateColumnResponseData> {
-  const token = await AsyncStorage.getItem('token');
-  const response = await axios.put(
-    `${COLUMN_API_ENDPOINT}/${id}`,
-    {title, description},
-    {
-      headers: {
-        Authorization: `bearer ${token}`,
-      },
-    },
-  );
+  const response = await axios.put(`${COLUMN_API_ENDPOINT}/${id}`, {
+    title,
+    description,
+  });
   return response.data;
 }
