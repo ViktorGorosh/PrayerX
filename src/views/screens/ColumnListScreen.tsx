@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {ScrollView, Text, TextInput, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {IconButton} from '../components/IconButton';
@@ -16,7 +16,7 @@ import generalStyles from './styles';
 export default ({navigation}: ColumnListScreenProps) => {
   const dispatch = useDispatch();
 
-  React.useLayoutEffect(() => {
+  useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         <IconButton

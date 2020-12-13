@@ -16,7 +16,7 @@ import {
   selectColumnCards,
   updateCard,
 } from '../../state/ducks/card';
-import {getComments} from '../../state/ducks/comment';
+import {getComments, selectCardComments} from '../../state/ducks/comment';
 import {selectError, selectLoading} from '../../state/ducks/meta';
 import {CustomTextInput} from '../components/CustomTextInput';
 import {RightAction} from '../components/RightAction';
@@ -28,24 +28,24 @@ import generalStyles from './styles';
 export default ({route, navigation}: ColumnItemScreenProps) => {
   const dispatch = useDispatch();
 
+  const column = useSelector((state: Store) =>
+    selectColumnById(state, route.params.colId),
+  )!;
+
   useEffect(() => {
     navigation.setOptions({
       title: column.title,
     });
     dispatch(getComments());
-  }, [navigation]);
+  }, [column.title, dispatch, navigation]);
 
   const [editingCard, setEditingCard] = useState<Card['id'] | undefined>(
     undefined,
   );
-
   const [cardTitle, setCardTitle] = useState('');
   const error = useSelector(selectError);
-  const isLoading = useSelector(selectLoading);
 
-  const column = useSelector((state: Store) =>
-    selectColumnById(state, route.params.colId),
-  )!;
+  const isLoading = useSelector(selectLoading);
 
   const cards = useSelector((state: Store) =>
     selectColumnCards(state, column.id),
@@ -77,6 +77,10 @@ export default ({route, navigation}: ColumnItemScreenProps) => {
     <ScrollView style={generalStyles.container}>
       <CustomTextInput placeholder={'Add card...'} onPress={handleCardAdding} />
       {cards.map((card) => {
+        const comments = useSelector((state: Store) =>
+          selectCardComments(state, card.id),
+        );
+
         return (
           <View style={styles.cardItemWrap} key={card.id}>
             <Swipeable
@@ -123,6 +127,11 @@ export default ({route, navigation}: ColumnItemScreenProps) => {
                       }}
                     />
                   )}
+                  <Image
+                    source={require('../../img/user.png')}
+                    style={styles.userIcon}
+                  />
+                  <Text style={generalStyles.mainText}>{comments.length}</Text>
                 </View>
               </View>
             </Swipeable>
@@ -150,5 +159,9 @@ const styles = StyleSheet.create({
   },
   textInput: {
     padding: 0,
+  },
+  userIcon: {
+    marginLeft: 'auto',
+    marginRight: 5,
   },
 });
