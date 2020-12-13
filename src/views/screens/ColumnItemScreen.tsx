@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   Image,
   ScrollView,
@@ -28,7 +28,7 @@ import generalStyles from './styles';
 export default ({route, navigation}: ColumnItemScreenProps) => {
   const dispatch = useDispatch();
 
-  React.useLayoutEffect(() => {
+  useEffect(() => {
     navigation.setOptions({
       title: column.title,
     });

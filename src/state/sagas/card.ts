@@ -1,5 +1,5 @@
 import {PayloadAction} from '@reduxjs/toolkit';
-import {call, put, takeEvery, takeLeading} from 'redux-saga/effects';
+import {call, put, takeLeading} from 'redux-saga/effects';
 import {loadingOff, loadingOn, setError} from '../ducks/meta';
 import {
   addCardSuccess,
@@ -127,8 +127,8 @@ function* updateCard(action: PayloadAction<CardUpdateInfo>) {
 
 export function* watchCards() {
   yield takeLeading(GET_CARDS, getCards);
-  yield takeEvery(GET_CARD_BY_ID, getCardById);
+  yield takeLeading(GET_CARD_BY_ID, getCardById);
   yield takeLeading(ADD_CARD, addCard);
   yield takeLeading(DELETE_CARD, deleteCard);
-  yield takeEvery(UPDATE_CARD, updateCard);
+  yield takeLeading(UPDATE_CARD, updateCard);
 }
