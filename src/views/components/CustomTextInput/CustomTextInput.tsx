@@ -12,7 +12,6 @@ export default ({onPress, placeholder}: CustomTextInputProps) => {
   }, []);
 
   const handlePress = useCallback(() => {
-    console.log('clicked');
     onPress(text);
   }, [onPress, text]);
 

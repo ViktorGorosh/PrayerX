@@ -27,7 +27,7 @@ export default ({navigation}: ColumnListScreenProps) => {
     });
     dispatch(getColumns());
     dispatch(getCards());
-  }, [navigation]);
+  }, [dispatch, navigation]);
 
   const columns = useSelector(selectColumns);
   const error = useSelector(selectError);

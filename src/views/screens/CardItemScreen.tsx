@@ -12,7 +12,7 @@ import {selectCardById, updateCard} from '../../state/ducks/card';
 import {addComment, selectCardComments} from '../../state/ducks/comment';
 import {CommentItem} from '../components/CommentItem';
 import {IconButton} from '../components/IconButton';
-import { CustomTextInput } from '../components/CustomTextInput';
+import {CustomTextInput} from '../components/CustomTextInput';
 import {Store} from '../../store';
 import {Comment} from '../../interfaces/comment';
 import {CardItemScreenProps} from '../../interfaces/navigator';
@@ -22,25 +22,25 @@ import {selectError, selectLoading} from '../../state/ducks/meta';
 export default ({route, navigation}: CardItemScreenProps) => {
   const {colTitle, cardId} = route.params;
 
+  const card = useSelector((state: Store) => selectCardById(state, cardId))!;
+
   useEffect(() => {
     navigation.setOptions({
       title: card.title,
     });
-    console.log(newDesc)
-  }, [navigation]);
+  }, [card.title, navigation]);
 
   const dispatch = useDispatch();
 
-  const [newComment, setNewComment] = useState('');
-  const [isEditingDesc, setEditingDesc] = useState(false);
-  const [newDesc, setNewDesc] = useState('');
-
-  const card = useSelector((state: Store) => selectCardById(state, cardId))!;
   const comments: Array<Comment> = useSelector((state: Store) =>
     selectCardComments(state, cardId),
   );
   const error = useSelector(selectError);
   const isLoading = useSelector(selectLoading);
+
+  const [newComment, setNewComment] = useState('');
+  const [isEditingDesc, setEditingDesc] = useState(false);
+  const [newDesc, setNewDesc] = useState(card.description);
 
   const onChangeNewComment = useCallback((text) => {
     setNewComment(text);
@@ -54,32 +54,29 @@ export default ({route, navigation}: CardItemScreenProps) => {
     dispatch(
       addComment({cardId, body: newComment, created: new Date().toString()}),
     );
-  }, [dispatch, newComment]);
+  }, [cardId, dispatch, newComment]);
 
-  const handleDescriptionAdd = useCallback((newDesc) => {
-    dispatch(updateCard({id: cardId, description: newDesc}))
-  }, [dispatch, newDesc]);
+  const handleCardUpdate = useCallback(() => {
+    dispatch(updateCard({id: cardId, description: newDesc}));
+    setEditingDesc(false);
+  }, [cardId, dispatch, newDesc]);
 
-  const onDescriptionEdit = useCallback(() => setEditingDesc(true), [])
+  const handleDescriptionAdd = useCallback(
+    (description) => {
+      if (description === '') {
+        return;
+      }
+
+      dispatch(updateCard({id: cardId, description}));
+    },
+    [cardId, dispatch],
+  );
+
+  const onDescriptionEdit = useCallback(() => setEditingDesc(true), []);
 
   const onChangeNewDesc = useCallback((text) => {
-    setNewDesc(prevState => text);
+    setNewDesc(text);
   }, []);
-
-  const onDescriptionUpdate = useCallback(() => {
-    console.log('newDesc: ', newDesc)
-    if (newDesc === '') {
-      return;
-    }
-
-    // dispatch(
-    //   updateCard({
-    //     id: card.id,
-    //     description: newDesc,
-    //   }),
-    // );
-    setNewDesc('');
-  }, [dispatch, ])
 
   return (
     // Flexbox problem was about this ScrollView changed on View
@@ -98,25 +95,27 @@ export default ({route, navigation}: CardItemScreenProps) => {
       </View>
       <View style={styles.wrap}>
         <Text style={styles.subtitle}>Description</Text>
-        {card.description ?
+        {card.description ? (
           isEditingDesc ? (
             <TextInput
               style={[generalStyles.mainText, styles.descInput]}
               defaultValue={card.description}
               autoFocus={true}
               onChangeText={onChangeNewDesc}
-              onBlur={onDescriptionUpdate}
+              onBlur={handleCardUpdate}
             />
           ) : (
             <Text
               style={generalStyles.mainText}
-              onLongPress={onDescriptionEdit}
-            >
+              onLongPress={onDescriptionEdit}>
               {card.description}
             </Text>
           )
-        : (
-          <CustomTextInput onPress={handleDescriptionAdd} placeholder={'Add description...'}/>
+        ) : (
+          <CustomTextInput
+            onPress={handleDescriptionAdd}
+            placeholder={'Add description...'}
+          />
         )}
       </View>
       <View style={styles.wrap}>
