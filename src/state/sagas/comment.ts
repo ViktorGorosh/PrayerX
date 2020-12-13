@@ -6,6 +6,7 @@ import {
   getCommentById as getComment,
   getCommentsSuccess,
   deleteCommentSuccess,
+  updateCommentSuccess,
 } from '../ducks/comment';
 import {
   addCommentService,
@@ -114,7 +115,7 @@ function* updateComment(action: PayloadAction<CommentUpdateInfo>) {
     console.log('Update data: ', data);
     if (data.id) {
       // Server must return updated Comment
-      // yield put(updateCommentSuccess(data));
+      yield put(updateCommentSuccess(data));
     } else {
       throw new Error("Can't update Comment");
     }

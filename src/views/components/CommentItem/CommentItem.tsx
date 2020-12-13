@@ -2,7 +2,11 @@ import React, {useCallback, useState} from 'react';
 import {Image, StyleSheet, Text, TextInput, View} from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import {useDispatch, useSelector} from 'react-redux';
-import {selectCommentById, deleteComment} from '../../../state/ducks/comment';
+import {
+  selectCommentById,
+  deleteComment,
+  updateComment,
+} from '../../../state/ducks/comment';
 import {RightAction} from '../RightAction';
 import {Store} from '../../../store';
 import {Comment} from '../../../interfaces/comment';
@@ -22,17 +26,30 @@ export default ({commentId}: CommentItemProps) => {
   const [editingComment, setEditingComment] = useState<
     Comment['id'] | undefined
   >(undefined);
-  const [text, setText] = useState(comment.body);
+  const [commentText, setCommentText] = useState(comment.body);
 
-  // const onCommentTextChange = useCallback((e) => setText(e.target.value), []);
-  //
-  // const onCommentUpdate = useCallback(() => {
-  //   if (text === '') {
-  //     return;
-  //   }
-  //
-  //   dispatch(updateComment({id: comment.id, text}));
-  // }, [comment.id, dispatch, text]);
+  const onCommentEdit = useCallback(() => {
+    setEditingComment(commentId);
+  }, [commentId]);
+
+  const onCommentTextChange = useCallback((text) => setCommentText(text), []);
+
+  const onCommentUpdate = useCallback(() => {
+    setEditingComment(undefined);
+    setCommentText('');
+
+    if (commentText === '') {
+      return;
+    }
+
+    dispatch(
+      updateComment({
+        id: comment.id,
+        body: commentText,
+        created: new Date().toString(),
+      }),
+    );
+  }, [comment.id, dispatch, commentText]);
 
   const onCommentDelete = useCallback(() => {
     dispatch(deleteComment(comment.id));
@@ -47,27 +64,16 @@ export default ({commentId}: CommentItemProps) => {
         <View style={styles.textWrap}>
           <Text style={styles.author}>{comment.userId}</Text>
           {comment.id !== editingComment ? (
-            <Text style={generalStyles.mainText}>{comment.body}</Text>
+            <Text style={generalStyles.mainText} onLongPress={onCommentEdit}>
+              {comment.body}
+            </Text>
           ) : (
             <TextInput
               style={[generalStyles.mainText, styles.textInput]}
               defaultValue={comment.body}
               autoFocus={true}
-              onChangeText={(text) => setText(text)}
-              // onBlur={() => {
-              //   if (text === '') {
-              //     return;
-              //   }
-              //
-              //   dispatch(
-              //     updateComment({
-              //       id: comment.id,
-              //       title: commentTitle,
-              //     }),
-              //   );
-              //   setcommentTitle('');
-              //   setEditingcomment(undefined);
-              // }}
+              onChangeText={onCommentTextChange}
+              onBlur={onCommentUpdate}
             />
           )}
         </View>
