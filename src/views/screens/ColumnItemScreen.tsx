@@ -108,18 +108,18 @@ export default ({route, navigation}: ColumnItemScreenProps) => {
                       autoFocus={true}
                       onChangeText={(text) => setCardTitle(text)}
                       onBlur={() => {
+                        setCardTitle('');
+                        setEditingCard(undefined);
+
                         if (cardTitle === '') {
                           return;
                         }
-
                         dispatch(
                           updateCard({
                             id: card.id,
                             title: cardTitle,
                           }),
                         );
-                        setCardTitle('');
-                        setEditingCard(undefined);
                       }}
                     />
                   )}
