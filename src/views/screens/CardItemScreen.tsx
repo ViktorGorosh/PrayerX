@@ -8,11 +8,13 @@ import {
   View,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
+import Swipeable from 'react-native-gesture-handler/Swipeable';
 import {selectCardById, updateCard} from '../../state/ducks/card';
 import {addComment, selectCardComments} from '../../state/ducks/comment';
 import {CommentItem} from '../components/CommentItem';
 import {IconButton} from '../components/IconButton';
 import {CustomTextInput} from '../components/CustomTextInput';
+import {RightAction} from '../components/RightAction';
 import {Store} from '../../store';
 import {Comment} from '../../interfaces/comment';
 import {CardItemScreenProps} from '../../interfaces/navigator';
@@ -78,6 +80,10 @@ export default ({route, navigation}: CardItemScreenProps) => {
     setNewDesc(text);
   }, []);
 
+  const handleDescriptionDelete = useCallback(() => {
+    dispatch(updateCard({id: cardId, description: ''}));
+  }, [cardId, dispatch]);
+
   return (
     // Flexbox problem was about this ScrollView changed on View
     // TODO: change ScrollView to Flatlist with Separator comp
@@ -105,11 +111,16 @@ export default ({route, navigation}: CardItemScreenProps) => {
               onBlur={handleCardUpdate}
             />
           ) : (
-            <Text
-              style={generalStyles.mainText}
-              onLongPress={onDescriptionEdit}>
-              {card.description}
-            </Text>
+            <Swipeable
+              renderRightActions={() => (
+                <RightAction onPress={handleDescriptionDelete} />
+              )}>
+              <Text
+                style={generalStyles.mainText}
+                onLongPress={onDescriptionEdit}>
+                {card.description}
+              </Text>
+            </Swipeable>
           )
         ) : (
           <CustomTextInput
