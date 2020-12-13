@@ -5,6 +5,7 @@ import {
   addCommentSuccess,
   getCommentById as getComment,
   getCommentsSuccess,
+  deleteCommentSuccess,
 } from '../ducks/comment';
 import {
   addCommentService,
@@ -95,7 +96,7 @@ function* deleteComment(action: PayloadAction<Comment['id']>) {
     );
     console.log('Delete Comment: ', data);
     if (data.raw) {
-      // yield put(deleteCommentSuccess(action.payload));
+      yield put(deleteCommentSuccess(action.payload));
     } else {
       throw new Error("Can't delete Comment");
     }

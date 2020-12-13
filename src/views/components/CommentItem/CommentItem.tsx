@@ -2,7 +2,7 @@ import React, {useCallback, useState} from 'react';
 import {Image, StyleSheet, Text, TextInput, View} from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import {useDispatch, useSelector} from 'react-redux';
-import {selectCommentById} from '../../../state/ducks/comment';
+import {selectCommentById, deleteComment} from '../../../state/ducks/comment';
 import {RightAction} from '../RightAction';
 import {Store} from '../../../store';
 import {Comment} from '../../../interfaces/comment';
@@ -35,7 +35,7 @@ export default ({commentId}: CommentItemProps) => {
   // }, [comment.id, dispatch, text]);
 
   const onCommentDelete = useCallback(() => {
-    // dispatch(deleteComment(comment.id));
+    dispatch(deleteComment(comment.id));
   }, []);
 
   return (
